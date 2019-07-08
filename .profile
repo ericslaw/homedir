@@ -1,0 +1,1 @@
+test -x ~/.bashrc && . ~/.bashrc
