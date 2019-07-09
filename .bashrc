@@ -3,17 +3,14 @@
 
 # User specific aliases and functions
 
+# local prompt customization if interactive (PS1 set) and promptrc exists
 #
-# prompt
-#
-user="$USER"
-### user=`id | sed -n -e 's/.*uid=[0-9]*(\([a-zA-Z0-9]*\)).*/\1/p'`
-### host=`hostname|tr '[A-Z]' '[a-z]'|sed 's/L-.*/laptop/'`
-### host=`uname -n|sed 's/\..*//'|tr '[A-Z]' '[a-z]'|sed 's/[lL]-.*/laptop/'`
-host=`hostname`
-if [ $host = 'LM-SJN-21000536' -o $host = 'LM-SJN-21018895' ]; then host=macbook; fi
-if [ $host = 'erics-mac-mini.lan' ]; then host=mini; fi
-export PS1="\u@$host% "
+if [ -n "$PS1" -a -x $HOME/.prompt ]; then
+    . $HOME/.promptrc
+elif [ -n "$PS1" ]; then
+    export PS1="\u@\h\$ "   # alternative default from common system settings
+fi
+
 #
 # path
 #
@@ -36,7 +33,7 @@ export PATH PS1
 
 
 function dropzone {
-    sftp -o KexAlgorithms=diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-dss dropzone.paypalcorp.com
+    sftp -o KexAlgorithms=diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-dss dropzone.corp.com
 }
 
 function fage {
@@ -48,7 +45,7 @@ export HISTTIMEFORMAT="%H:%M:%S "
 #ulimit coredumpsize 0
 # HOSTFILE (in /etc/hosts format) allows auto-comoplete of hostnames
 export HOSTFILE=$HOME/etc/hosts
-
+ 
 
 # quicky shell var to allow grep of DNS zone xfers
 dns=$HOME/git/gap/data/dns.raw
@@ -58,13 +55,8 @@ dns=$HOME/git/gap/data/dns.raw
 function setpass { perl -e 'print "export PASS="'; stty -echo; read PASS; export PASS; echo ""; stty echo; }
 
 alias sssh=gosh
-function mux   { name=$1; ssh -t slc01seh01b.slc.paypal.com ssh -t slcppcc3001b.slc.paypal.com "/usr/local/bin/tmux -CC new-session -A -s ${name:=default}"; }
-function mux1  { name=$1; ssh -t slc01seh01a.slc.paypal.com ssh -t slcppcc3001a.slc.paypal.com "/usr/local/bin/tmux -CC new-session -A -s ${name:=default}"; }
-function mux2  { name=$1; ssh -t slc01seh02a.slc.paypal.com ssh -t slcppcc3002a.slc.paypal.com "/usr/local/bin/tmux -CC new-session -A -s ${name:=default}"; }
-function mux1a { name=$1; ssh -t slc01seh01a.slc.paypal.com ssh -t slcppcc3001a.slc.paypal.com "/usr/local/bin/tmux -CC new-session -A -s ${name:=default}"; }
-function mux2a { name=$1; ssh -t slc01seh02a.slc.paypal.com ssh -t slcppcc3002a.slc.paypal.com "/usr/local/bin/tmux -CC new-session -A -s ${name:=default}"; }
-function mux1b { name=$1; ssh -t slc01seh01b.slc.paypal.com ssh -t slcppcc3001b.slc.paypal.com "/usr/local/bin/tmux -CC new-session -A -s ${name:=default}"; }
-function mux2b { name=$1; ssh -t slc01seh02b.slc.paypal.com ssh -t slcppcc3002b.slc.paypal.com "/usr/local/bin/tmux -u -CC new-session -A -s ${name:=default}"; }
+# mux to mux host behind bastion
+function mux   { name=$1; ssh -t bastion.corp.com ssh -t mux.corp.com "/usr/local/bin/tmux -CC new-session -A -s ${name:=default}"; }
 
 # cmd to view vim histories side-by-side
 function vimhist {
@@ -305,18 +297,6 @@ function pdump {
 alias rcsinit='mkdir -p RCS;ci -iu'
 alias rcsco='co -l'
 alias rcsci='ci -u'
-alias sshini='sshinit id_rsa elaw@github.paypal.com'
-
-
-sflowlist="slcsflow1a slcsflow2a slcsflow1b slcsflow2b dcg11sflow9663 dcg11sflow9666 phxsflow1 phxsflow2 dcg02sflow4883 dcg02sflow4885 lvsvsflow01 lvsvsflow02"
-lb4list="slcnetcool1a slcnetcool1b slcnetcool2a slcnetcool2b dcg11calngo5936 dcg11calngo5952 phx01calngo01 phx01calngo02"
-ppslist="slcppdb447 slcppdb448 slcppdb449 phxppdb372 phxppdb373 phxppdb374 phxppdb375 slcppdb381 slcppdb382 slcppdb383 slcppdb384 slcppdb377 slcppdb378 slcppdb379 slcppdb380"
-tmrlist="tmr-vip-a.slc.paypal.com tmr-vip-b.slc.paypal.com tmr-dcg11-vip-b.slc.paypal.com tmrvip.phx.paypal.com"
-bburllist="http://monitor-vip-a.slc.paypal.com http://monitor-vip-b.slc.paypal.com http://bb-vip.live9.dcg11.slc.paypalinc.com http://monitor.phx.paypal.com"
-bblist="slcbb1a.slc.paypal.com slcbb1b.slc.paypal.com slcbb2a.slc.paypal.com slcbb2b.slc.paypal.com slcbb3a.slc.paypal.com slcbb3b.slc.paypal.com slcbb4a.slc.paypal.com slcbb4b.slc.paypal.com dcg11bb5934.dcg11.slc.paypalinc.com dcg11bb5950.dcg11.slc.paypalinc.com phx01bbmon01.phx.paypal.com phx01bbmon02.phx.paypal.com phx01wmon01.phx.paypal.com phx01appmon01.phx.paypal.com phx01appmon02.phx.paypal.com phx01occmon01.phx.paypal.com phx01occmon02.phx.paypal.com phx01dbmon01.phx.paypal.com phx01dbmon02.phx.paypal.com"
-bblist="slcbb2a.slc.paypal.com slcbb1b.slc.paypal.com slcbb1a.slc.paypal.com slcbb2b.slc.paypal.com dcg11bb5950.dcg11.slc.paypalinc.com dcg11bb5934.dcg11.slc.paypalinc.com phx01bbmon01.phx.paypal.com phx01bbmon02.phx.paypal.com"
-tmrlist="tmr-vip-a.slc.paypal.com tmr-vip-b.slc.paypal.com tmr-dcg11-vip-b.slc.paypal.com tmrvip.phx.paypal.com tmr-dcg02-vip.phx.paypal.com"
-ccmlist="ccm-vip-a.slc.paypal.com ccm-vip-b.slc.paypal.com ccm-dcg11-vip-b.slc.paypal.com ccmvip.phx.paypal.com ccm-dcg02-vip.phx.paypal.com"
 
 
 function json {
