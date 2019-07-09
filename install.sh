@@ -59,6 +59,14 @@ for obj in .git .hammerspoon .bashrc .profile .vimrc .jq; do
     linkcreate $src/$obj $dst/$obj $dst/$obj.save
 done
 
+# populate one-time skel files here
+for obj in .promptrc; do
+    if [ -e $src/$obj.skel -a ! -e $dst/$obj ]; then
+        doit cp -v $src/$obj.skel $dst/$obj
+    fi
+done
+
+# make empty dirs here
 for obj in .backup logs tmp; do
     if [ ! -d $dst/$obj ]; then
         doit mkdir -p $dst/$obj
