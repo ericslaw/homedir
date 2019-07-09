@@ -1,0 +1,29 @@
+# source this file to set the prompt - must be executable
+
+# references:
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Interactive-Shell-Behavior-1
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Controlling-the-Prompt
+# https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Programmable-Completion
+
+# PROMPT_COMMAND        # cmd to execute before cmdline cycle
+# PROMPT_DIRTRIM        # trim $PWD for \w
+# PS1 prompt initial    # typical
+# PS2 prompt multiline  # unclosed quotes
+# PS0 prompt accepted   # ?
+# PS3 prompt select     # select
+# PS4 prompt trace      # set -x
+
+# built-in \u and \h which likely fetches via getpwent(3) and gethostname(3) respectively
+# USER is inherited from login(1), likely extracted it from getpwent(3)
+# HOSTNAME is set by bash likely via gethostname(3)
+# UID is set by bash likely via getuid(2) ... but is a _shell_ variable not exported
+
+#export PS1="\u@\H:\w\$ "            # user@hostname:.../fullpath$
+#export PS1="\u@\h:\W\$ "            # user@shortname:basepath$
+#export PS1="$USER@$HOSTNAME\$ "     # env var overrides
+export PS1="\u@\h:\w\$ "            # terse user@host$
+
+# ugly hacks
+### user=`id | sed -n -e 's/.*uid=[0-9]*(\([a-zA-Z0-9]*\)).*/\1/p'`
+### user=`perl -le '$u=$ENV{USER};$u="$1$2"if$u=~/^(.).*[.](.*)/;print$u'`
+### host=`uname -s|grep -qi darwin && system_profiler SPHardwareDataType|perl -F: -anle 'BEGIN{$m=$ENV{HOSTNAME}};next unless /Model Name:\s*(.*)/i;$m=lc$1;END{$m=~s/\s//g;$m=~s/macbookpro/macbook/;$m=~s/macmini/mini/;print$m}'`
