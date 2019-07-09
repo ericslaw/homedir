@@ -1,0 +1,1120 @@
+# vim: foldmethod=marker:expandtab:tabstop=4:shiftwidth=4:nowrap
+config mac mbp or mini {{{
+physical {{{
+plugin mini with ONLY ONE hdmi connector
+select lang = english
+select country = usa
+allow location = no
+select timezone = est, philadelphia
+
+connect to wifi = hedwig/******
+
+icloud = skip
+
+add bluetooth keyboard, modifiers: capslock=control
+add bluetooth trackpad
+
+primary monitor - dell 34' curve = 50hz
+connect extra monitors, portrait
+}}}
+diskspace 31gb used on relatively fresh system {{{
+user@macos% df -k
+Filesystem    1024-blocks     Used Available Capacity iused               ifree %iused  Mounted on
+/dev/disk1s1    118181844 32980588  82425108    29%  688651 9223372036854087156    0%   /
+/dev/disk1s4    118181844  2097172  82425108     3%       1 9223372036854775806    0%   /private/var/vm
+= 31gb / 112gb = 28% used
+}}}
+System Preferences = display arrangement, capslock=control, trackpad tap-to-click + three-finger-drag, Fn+grid for screenshot {{{
+    general
++       appearance: light
+        show scroll bars: automatically based on mouse/trackpad [d]
++       click scroll bar: jump to spot clicked
++       default web browser: chrome canary
++       [x] ask to keep changes 
+        [x] close windows when quitting an app (ie: do not restore them on restart)
++       [ ] allow handoff to icloud
+        [x] use LCD font smoothing
+    desktop + screen saver
+        desktop
+        screen saver 
++           start after: 20min = Never
+            [hot corners] / all disabled
+    dock
+        size = 45%
+        mag = max
+        pos = bottom
+        min = genie
+        prefer tab = fullscreen only
+        [x] dblclick to zoom
+        [ ] min into app icon
+        [x] animate open
++       [x] auto hide/show dock
+        [x] show indicator for open app
++       [ ] show recent app in dock
+
+    mission control
+        [x] auto arrange spaces based recent use
+        [x] switch to app in its space
+        [ ] group win by app
++       [ ] displays have separate screens  (if checked windows cannot span displays)
+    dashboard [off]
+
+    lang+region
+    english
+        region = united states
+        first = sunday
+            cal = gregorian
+            time format [ ] 24hr
+            temp = fahrenheit
+        advanced
+            general
+                number separator: grouping = , decimal = . ; currency=usdollar
+               
+    security+privacy
+    general
+    filevault
+    firewall
+    privacy
+
+    spotlight
+        search results: disable all except applications+sysprefs
+    notifications
+        ?slack change here?
+    display / window arrangement
+        drag-n-drop
+    energy saver
++       turn off display after = 10m => never
++       [ ] automatic graphics switching - 
++       [ ] prevent computer from sleeping automatically when display is off
+        [x] hard disk sleep
+        [x] wake on wan
+        [ ] start auto from powerfail
+        [x] enable power nap
+    keyboard / keyboard /
++       [modifier keys] caps lock key: Control
++       touchbar = show expanded
+    keyboard / shortcuts; screen shots
++       copy picture of selected area to the clipboard: was shift+ctrl+cmd+4, now Fn+F4 (just F4)
++       save file of selected area to the clipboard: was shift+ctrl+cmd+4, now shift+Fn+F4 (just F4)
+        ? where do screenshots go? Desktop by default - how to change?
+    keyboard / shortcuts; all applications
+    keyboard/shortcuts/app
+#       ctrl-c  =   Copy
+#       ctrl-v  =   Paste
+#      ?ctrl-x  =   Cut
+    keyboard / shortcuts; Google Chrome
+        ctrl-n  =   New Tab
+        ctrl-w  =   Close Tab
+#       New Window
+#       New Tab
+#       Reopen Closed Tab
+#       Undo
+#       Find...
+#       Find Next
+#       Find Previous
+#       Select All
+    mouse
++       scroll direction natural = off
+    trackpad / point + click
++       [ ] lookups
+        [x] second click?
++       [x] tap to click
+    trackpad / scvoll + zoom
+        [ ] scroll direction: natural
+        [x] zoom
+        [x] smart zoom
+        [x] rotate
+    trackpad / more gestures
++       [ ] swipe between pages (two finger)
++       [ ] swipe between fullscreen apps (3finger)
+        [x] notification center (2finger swipe from rightside)
+        [x] mission control  # switch to four finger up
+        [ ] app expose
+        [x] launchpad
++       [ ] show desktop
+
+    printers + scanners
++       [+] and it shows up!
+    sound
+        sound effects
+            play thru = selected output device
+            alert vol = 100%
+            [x] play ui sound effects
+            [ ] play feedback when volume changed
+            output
+            vol = 100%
++           [x] show volume in menu bar
+        output tab
+            select sound device = mini external headphones
+        input tab
+            HD Webcam C615
+            HD Webcam C615
+    startup disk
+    icloud
+        not logged in
+    internet accounts (for mail, contacts, calendar, messages, etc
+        icloud
+        exchange
+        google
+        yahoo
+        aol
+        other
+    software
+        [ ] auto update?
+?   wallet+applepay
+?   app store
+    network
+        already setup
+        location: automatic
+        list of interfaes: wifi, bluetooth, ethernet, thunderbolt
+    bluetooth
++       [x] show bluetooth in menu bar
+        advanced:
+            [x] open bt setup if no keyboard
+            [x] open bt setup if no mouse/pad
+            [x] allow bt to wake computer
+    extensions
+        all
+    photos editing
+        share menu
+        today
+        finder
+    sharing
+        all disabled
+    touchid
+    user+groups
+    parental controls
+    siri
+        disabled
+    date+time
+        clock tab
+            [x] show in menubar
+            [x] digital [ ] analog
+            [ ] seconds
+            [ ] flash
+            [ ] 24h
+            [x] am/pm
+            [x] day of week
+            [ ] date
+    time machine
+    accessibility 
+        mouse + trackpad
+            [trackpad options]
++       enable dragging: with three finger drag
+    accessibility / display
+        custor size: normal
+    profiles
+        prevent siri from being enabled
+        chrome plugin to ask?
+        enterprise connect
+        signing cert
+        login+screensaver corners (assholes) wvous-br-corner=5
+        firewall
+        auto-update office, prevent insider
+        onedrive disable personal sync
+        ppwifi certs
+    java
+    }}}
+apps from web {{{
+iterm2 - load prefs from ... ? crap
+chrome - signin + sync w/ google
+spotify - signin w/ facebook
+logitech - "Camera Settings" v2.5.12    https://support.logitech.com/en_us/product/hd-pro-webcam-c920s/downloads
+skype - skype.com - use old credentials
+}}}
+
+apps from store {{{
+slack
+vox + vox.rocks/ control extension
+}}}
+apps from brew {{{
+# install
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" #{{{
+==> This script will install:
+/usr/local/bin/brew
+/usr/local/share/doc/homebrew
+/usr/local/share/man/man1/brew.1
+/usr/local/share/zsh/site-functions/_brew
+/usr/local/etc/bash_completion.d/brew
+/usr/local/Homebrew
+==> The following new directories will be created:
+/usr/local/bin
+/usr/local/etc
+/usr/local/include
+/usr/local/lib
+/usr/local/sbin
+/usr/local/share
+/usr/local/var
+/usr/local/opt
+/usr/local/share/zsh
+/usr/local/share/zsh/site-functions
+/usr/local/var/homebrew
+/usr/local/var/homebrew/linked
+/usr/local/Cellar
+/usr/local/Caskroom
+/usr/local/Homebrew
+/usr/local/Frameworks
+==> The Xcode Command Line Tools will be installed.
+
+# some note about separate paths in /usr/local/opt/{item}/bin for gettext,openssl,icu4c
+# export PATH=/usr/local/opt/gettext/bin:/usr/local/opt/openssl/bin:$PATH
+
+}}}
+brew install python3 #{{{
+==> Installing dependencies for python: gdbm, openssl, readline, sqlite and xz
+==> Installing python dependency: gdbm
+==> Downloading https://homebrew.bintray.com/bottles/gdbm-1.18.1.mojave.bottle.1.tar.gz
+######################################################################## 100.0%
+==> Pouring gdbm-1.18.1.mojave.bottle.1.tar.gz
+🍺  /usr/local/Cellar/gdbm/1.18.1: 20 files, 586.8KB
+==> Installing python dependency: openssl
+==> Downloading https://homebrew.bintray.com/bottles/openssl-1.0.2r.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/c1/c1f8c06740398325c7028213b20b18c5de39763fbc81e5819c78a06ee0621170?__gda__=exp=1554506216~hmac=c47af776
+######################################################################## 100.0%
+==> Pouring openssl-1.0.2r.mojave.bottle.tar.gz
+==> Caveats
+A CA file has been bootstrapped using certificates from the SystemRoots
+keychain. To add additional certificates (e.g. the certificates added in
+the System keychain), place .pem files in
+  /usr/local/etc/openssl/certs
+
+and run
+  /usr/local/opt/openssl/bin/c_rehash
+
+openssl is keg-only, which means it was not symlinked into /usr/local,
+because Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries.
+
+If you need to have openssl first in your PATH run:
+  echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.bash_profile
+
+For compilers to find openssl you may need to set:
+  export LDFLAGS="-L/usr/local/opt/openssl/lib"
+  export CPPFLAGS="-I/usr/local/opt/openssl/include"
+
+==> Summary
+🍺  /usr/local/Cellar/openssl/1.0.2r: 1,795 files, 12.1MB
+==> Installing python dependency: readline
+==> Downloading https://homebrew.bintray.com/bottles/readline-8.0.0.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/9b/9b698b215a371ae394a4fa9137b019472c649c77ea389b6bdf2d9104cfe4a56c?__gda__=exp=1554506221~hmac=fc24767e
+######################################################################## 100.0%
+==> Pouring readline-8.0.0.mojave.bottle.tar.gz
+==> Caveats
+readline is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides the BSD libedit library, which shadows libreadline.
+In order to prevent conflicts when programs look for libreadline we are
+defaulting this GNU Readline installation to keg-only.
+
+For compilers to find readline you may need to set:
+  export LDFLAGS="-L/usr/local/opt/readline/lib"
+  export CPPFLAGS="-I/usr/local/opt/readline/include"
+
+==> Summary
+🍺  /usr/local/Cellar/readline/8.0.0: 48 files, 1.5MB
+==> Installing python dependency: sqlite
+==> Downloading https://homebrew.bintray.com/bottles/sqlite-3.27.2.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/92/92e04d5ec9bc853574c91c6564d56cbe4ab032ab5449d347e004bcada6715c73?__gda__=exp=1554506223~hmac=cf706175
+######################################################################## 100.0%
+==> Pouring sqlite-3.27.2.mojave.bottle.tar.gz
+==> Caveats
+sqlite is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides an older sqlite3.
+
+If you need to have sqlite first in your PATH run:
+  echo 'export PATH="/usr/local/opt/sqlite/bin:$PATH"' >> ~/.bash_profile
+
+For compilers to find sqlite you may need to set:
+  export LDFLAGS="-L/usr/local/opt/sqlite/lib"
+  export CPPFLAGS="-I/usr/local/opt/sqlite/include"
+
+==> Summary
+🍺  /usr/local/Cellar/sqlite/3.27.2: 11 files, 3.7MB
+==> Installing python dependency: xz
+==> Downloading https://homebrew.bintray.com/bottles/xz-5.2.4.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/01/010667293df282c8bceede3bcd36953dd57c56cef608d09a5b50694ab7d4b96b?__gda__=exp=1554506225~hmac=d8ee5be6
+######################################################################## 100.0%
+==> Pouring xz-5.2.4.mojave.bottle.tar.gz
+🍺  /usr/local/Cellar/xz/5.2.4: 92 files, 1MB
+==> Installing python
+==> Downloading https://homebrew.bintray.com/bottles/python-3.7.3.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/25/25e0099852136c4ef1efd221247d0f67aa71f7b624211b98898f8b46c612f40d?__gda__=exp=1554506226~hmac=e45ec0e7
+######################################################################## 100.0%
+==> Pouring python-3.7.3.mojave.bottle.tar.gz
+==> /usr/local/Cellar/python/3.7.3/bin/python3 -s setup.py --no-user-cfg install --force --verbose --install-scripts=/usr/local/Cellar/python/3.7.3/bin
+==> /usr/local/Cellar/python/3.7.3/bin/python3 -s setup.py --no-user-cfg install --force --verbose --install-scripts=/usr/local/Cellar/python/3.7.3/bin
+==> /usr/local/Cellar/python/3.7.3/bin/python3 -s setup.py --no-user-cfg install --force --verbose --install-scripts=/usr/local/Cellar/python/3.7.3/bin
+==> Caveats
+Python has been installed as
+  /usr/local/bin/python3
+
+Unversioned symlinks `python`, `python-config`, `pip` etc. pointing to
+`python3`, `python3-config`, `pip3` etc., respectively, have been installed into
+  /usr/local/opt/python/libexec/bin
+
+If you need Homebrew's Python 2.7 run
+  brew install python@2
+
+You can install Python packages with
+  pip3 install <package>
+They will install into the site-package directory
+  /usr/local/lib/python3.7/site-packages
+
+See: https://docs.brew.sh/Homebrew-and-Python
+==> Summary
+🍺  /usr/local/Cellar/python/3.7.3: 3,863 files, 59.8MB
+==> `brew cleanup` has not been run in 30 days, running now...
+Pruned 0 symbolic links and 2 directories from /usr/local
+==> Caveats
+==> openssl
+A CA file has been bootstrapped using certificates from the SystemRoots
+keychain. To add additional certificates (e.g. the certificates added in
+the System keychain), place .pem files in
+  /usr/local/etc/openssl/certs
+
+and run
+  /usr/local/opt/openssl/bin/c_rehash
+
+openssl is keg-only, which means it was not symlinked into /usr/local,
+because Apple has deprecated use of OpenSSL in favor of its own TLS and crypto libraries.
+
+If you need to have openssl first in your PATH run:
+  echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.bash_profile
+
+For compilers to find openssl you may need to set:
+  export LDFLAGS="-L/usr/local/opt/openssl/lib"
+  export CPPFLAGS="-I/usr/local/opt/openssl/include"
+
+==> readline
+readline is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides the BSD libedit library, which shadows libreadline.
+In order to prevent conflicts when programs look for libreadline we are
+defaulting this GNU Readline installation to keg-only.
+
+For compilers to find readline you may need to set:
+  export LDFLAGS="-L/usr/local/opt/readline/lib"
+  export CPPFLAGS="-I/usr/local/opt/readline/include"
+
+==> sqlite
+sqlite is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides an older sqlite3.
+
+If you need to have sqlite first in your PATH run:
+  echo 'export PATH="/usr/local/opt/sqlite/bin:$PATH"' >> ~/.bash_profile
+
+For compilers to find sqlite you may need to set:
+  export LDFLAGS="-L/usr/local/opt/sqlite/lib"
+  export CPPFLAGS="-I/usr/local/opt/sqlite/include"
+
+==> python
+Python has been installed as
+  /usr/local/bin/python3
+
+Unversioned symlinks `python`, `python-config`, `pip` etc. pointing to
+`python3`, `python3-config`, `pip3` etc., respectively, have been installed into
+  /usr/local/opt/python/libexec/bin
+
+If you need Homebrew's Python 2.7 run
+  brew install python@2
+
+You can install Python packages with
+  pip3 install <package>
+They will install into the site-package directory
+  /usr/local/lib/python3.7/site-packages
+
+See: https://docs.brew.sh/Homebrew-and-Python
+}}}
+brew install wget #{{{
+==> Installing dependencies for wget: gettext, libunistring and libidn2
+==> Installing wget dependency: gettext
+==> Downloading https://homebrew.bintray.com/bottles/gettext-0.19.8.1.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/af/afc6a6120632b98d58b11fab82ae5e081206b89684dd948abf2d29caeb813ffd?__gda__=exp=1554506453~hmac=90b3c389
+######################################################################## 100.0%
+==> Pouring gettext-0.19.8.1.mojave.bottle.tar.gz
+==> Caveats
+gettext is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides the BSD gettext library & some software gets confused if both are in the library path.
+
+If you need to have gettext first in your PATH run:
+  echo 'export PATH="/usr/local/opt/gettext/bin:$PATH"' >> ~/.bash_profile
+
+For compilers to find gettext you may need to set:
+  export LDFLAGS="-L/usr/local/opt/gettext/lib"
+  export CPPFLAGS="-I/usr/local/opt/gettext/include"
+
+==> Summary
+🍺  /usr/local/Cellar/gettext/0.19.8.1: 1,935 files, 16.9MB
+==> Installing wget dependency: libunistring
+==> Downloading https://homebrew.bintray.com/bottles/libunistring-0.9.10.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/1d/1d0c8e266acddcebeef3d9f6162d6f7fa0b193f5f71837174fb2ef0b39d324f3?__gda__=exp=1554506459~hmac=1b75601f
+######################################################################## 100.0%
+==> Pouring libunistring-0.9.10.mojave.bottle.tar.gz
+🍺  /usr/local/Cellar/libunistring/0.9.10: 54 files, 4.4MB
+==> Installing wget dependency: libidn2
+==> Downloading https://homebrew.bintray.com/bottles/libidn2-2.1.1a.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/37/375378c094e99ec8da0cf14d5cf8e70bca64ac594e2c0728c961be3999f9f190?__gda__=exp=1554506461~hmac=1a29302a
+######################################################################## 100.0%
+==> Pouring libidn2-2.1.1a.mojave.bottle.tar.gz
+🍺  /usr/local/Cellar/libidn2/2.1.1a: 69 files, 691.8KB
+==> Installing wget
+==> Downloading https://homebrew.bintray.com/bottles/wget-1.20.2.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/4a/4aae847c2f472574ed1dd7b1f8ec39e76e5a0255b0d96e16e3991dcf03ec5f19?__gda__=exp=1554506463~hmac=737e67d3
+######################################################################## 100.0%
+==> Pouring wget-1.20.2.mojave.bottle.tar.gz
+🍺  /usr/local/Cellar/wget/1.20.2: 50 files, 4.0MB
+==> Caveats
+==> gettext
+gettext is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides the BSD gettext library & some software gets confused if both are in the library path.
+
+If you need to have gettext first in your PATH run:
+  echo 'export PATH="/usr/local/opt/gettext/bin:$PATH"' >> ~/.bash_profile
+
+For compilers to find gettext you may need to set:
+  export LDFLAGS="-L/usr/local/opt/gettext/lib"
+  export CPPFLAGS="-I/usr/local/opt/gettext/include"
+}}}
+brew cask install hammerspoon #{{{
+==> Tapping homebrew/cask
+Cloning into '/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask'...
+remote: Enumerating objects: 4108, done.
+remote: Counting objects: 100% (4108/4108), done.
+remote: Compressing objects: 100% (4097/4097), done.
+remote: Total 4108 (delta 23), reused 415 (delta 9), pack-reused 0
+Receiving objects: 100% (4108/4108), 1.32 MiB | 6.62 MiB/s, done.
+Resolving deltas: 100% (23/23), done.
+Tapped 1 command and 4000 casks (4,114 files, 4.2MB).
+==> Satisfying dependencies
+==> Downloading https://github.com/Hammerspoon/hammerspoon/releases/download/0.9.73/Hammerspoon-0.9.73.zip
+==> Downloading from https://github-production-release-asset-2e65be.s3.amazonaws.com/24956772/5505e080-d390-11e8-82d9-6d937176db60?X-Amz-Algorithm=AWS4-
+######################################################################## 100.0%
+==> Verifying SHA-256 checksum for Cask 'hammerspoon'.
+==> Installing Cask hammerspoon
+==> Moving App 'Hammerspoon.app' to '/Applications/Hammerspoon.app'.
+🍺  hammerspoon was successfully installed!
+}}}
+brew install node {{{
+...
+==> Installing dependencies for node: icu4c
+==> Installing node dependency: icu4c
+==> Downloading https://homebrew.bintray.com/bottles/icu4c-64.2.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/e8/e858556120acc0c2d52b8fb572b677856724cc28d24a7e1b2762d458a2977c8e?__gda__=exp=1559070333~hmac=be151bef4694
+######################################################################## 100.0%
+==> Pouring icu4c-64.2.mojave.bottle.tar.gz
+==> Caveats
+icu4c is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides libicucore.dylib (but nothing else).
+
+If you need to have icu4c first in your PATH run:
+  echo 'export PATH="/usr/local/opt/icu4c/bin:$PATH"' >> ~/.bash_profile
+  echo 'export PATH="/usr/local/opt/icu4c/sbin:$PATH"' >> ~/.bash_profile
+
+For compilers to find icu4c you may need to set:
+  export LDFLAGS="-L/usr/local/opt/icu4c/lib"
+  export CPPFLAGS="-I/usr/local/opt/icu4c/include"
+
+==> Summary
+...  /usr/local/Cellar/icu4c/64.2: 257 files, 69.2MB
+==> Installing node
+==> Downloading https://homebrew.bintray.com/bottles/node-12.3.1.mojave.bottle.tar.gz
+==> Downloading from https://akamai.bintray.com/4d/4ded0c82859da5c88b37e4295e95dd3a30e88d3a399e02ffa3592e3d3a41d5c6?__gda__=exp=1559070344~hmac=30589f886039
+######################################################################## 100.0%
+==> Pouring node-12.3.1.mojave.bottle.tar.gz
+==> Caveats
+Bash completion has been installed to:
+  /usr/local/etc/bash_completion.d
+==> Summary
+...  /usr/local/Cellar/node/12.3.1: 4,505 files, 53.8MB
+==> `brew cleanup` has not been run in 30 days, running now...
+Removing: ....
+==> Caveats
+==> icu4c
+icu4c is keg-only, which means it was not symlinked into /usr/local,
+because macOS provides libicucore.dylib (but nothing else).
+
+If you need to have icu4c first in your PATH run:
+  echo 'export PATH="/usr/local/opt/icu4c/bin:$PATH"' >> ~/.bash_profile
+  echo 'export PATH="/usr/local/opt/icu4c/sbin:$PATH"' >> ~/.bash_profile
+
+For compilers to find icu4c you may need to set:
+  export LDFLAGS="-L/usr/local/opt/icu4c/lib"
+  export CPPFLAGS="-I/usr/local/opt/icu4c/include"
+
+==> node
+Bash completion has been installed to:
+  /usr/local/etc/bash_completion.d
+}}}
+}}}
+
+Finder Preferences {{{
+    General
++       show items on desktop: none
++       new finder window shows: HD => $HOME
++       open in tabs vs new windows: disabled
+    Tags
+        -
+    Sidebar
+        Favorites
++           [ ] Recents
++           [ ] iCloud
++           [ ] AirDrop
+            [x] Applications
+            [x] Desktop     (screenshots show up here)
+            [x] Documents
+            [x] Downloads
+            [ ] Movies
+            [ ] Music
+            [x] Pictures
++           [x] $HOME
+        Locations
+            [x] iCloud Drive
+            [ ] this computer - Users Mac
+            [x] Hard disks
+            [x] External disks
+            [x] CDs, DVDs, and iPods
+            [x] Bonjour computers
+            [x] connected servers
+        Tags
++           None
+    Advanced
++       [x] show all filename extensions
+        [x] show warning before changing extension
+        [x] show warning before removing from icloud
+        [x] show warning before emptying trash
+        [ ] remove items from trash after 30days
+        keep folders ontop
+            [ ] when sorting by name
+            [ ] on desktop
++       when performing a search: Search this Mac => search this folder
+}}}
+hammerspoon prefs popup {{{
++   [x] launch hammerspoon at login
+    [x] check for updates
++   [ ] show dock icon
+    [x] show menu icon
+    [ ] keep console ontop
++   [ ] send crash data
+    [enable accessibility]
+}}}
+iTerm2 features {{{
+    focus follows mouse within app :)
+    autocomplete any word in scrollbuff with cmd-; (wut?)
+    select-auto-copy (BEST!)
+    transparency (toggle with cmd-U)
+    window/save/arrangement
+    broadcast input to multiple windows
+    replay (time-based views of recent display)
+    cmd-+/-/0 font size
+    smart selection based on regex rules
+}}}
+iTerm2 prefs {{{
+general - quit on close, load prefs from $HOME/bin/, smart placement, hidescroll, non-native fullscreen, auto-bury-tmux {{{
+    startup
+        #open default window arrangement: on #off (not available on mini)
+    closing
++       [x] quit when all windows are closed: on #off
+        [x] confirm closing multiple: #on
+        [x] confirm "quit" #Q: #on
+    magic
+        ...
+    services
+        ...
+    preferences
++?      [x] load prefs from folder
+    selection
+        [x] copy to clipboard: #on #YAY
+        [ ] copy includes newline: #off
+        [ ] clipboard access terminal apps: #off
+        word selection includes: ~_ #/-+\~_.
+    window
++       [x] smart window placement: on #off
++       [x] hide scrollbars
+        [x] adjust window when changing font: #on
+        [ ] zoom button max vertical only: #off
++       [ ] native full screen
+    tmux
+        open as native windows
++       [x] auto bury tmux client session
+}}}
+appearances = window border {{{
+    Tabs
+    Pands
+    System
+    Window & Tab Titles
+    Dimming
+    Window
++       [x] show border around window
+        [ ] hide scrollbars
+        [ ] disable transparency
+        [ ] show line
+        [ ] show proxy
+}}}
+profiles1 - colors, cursor=red+blink, open near cursor, scolllines, TERM=xterm, silence+flash bell {{{
+    general - no change {{{
+        basics
+            name: #default
+        command
+            login shell: #on
+        working directory
+            cwd: #homedir
+        url schemes?
+?           what it recognizes?
+    }}}
++   colors - fore/back cursor=red {{{
+        popups shows:
+            HSL/HSB (vs hsv?)
+            sliders
+                greyscale
+                rgb (has dec slider and hex form field)
+                cymk
+                hsb
+            discrete picker:
+                palettes from
+                    apple: black,blue,brown,cyan,green,magenta,orange,purple,red,yellow,white
+                    dev:
+                    crayons:
+                    websafe:
+            spectrum:
+            crayons (60 color picker?)
+
++       fore: hex:ffffd0 #white
++       back: hex:200000 #black
++           fore/back = e8e8d0/581414   warm red
++           fore/back = e8e8d0/101040   cool blu
++           fore/back = cccccc/382020   what grn
+        bold: #white
+        selection: #baby blue? cymk:23,9,0,0; rgb:99ccff
+        select text: #white
++       cursor: #FF0000 #grey (disabled with smart cursor color)
+        cursor text: #white (disabled with smart cursor color)
+
+        ansi normal abd bright versions of:
+            black, red, green, yellow, blue, magenta, cyan, white
+        smart cursor color: #on
+        minimum contrast: #low
+    }}}
++   text - cursor blink {{{
++       cursor: blink=on #box blink=off
+        text: #bold font, bright, blink=off, italic
+            use thin strokes? on retina
+        unicode:  ambiguousdouble=off use unicode v9=on  unicode normalization form=none
+            forms are: NFC NFD NFKC NFKD: see http://www.unicode.org/reports/tr15/#Norm_Forms
+        font: #12pt monaco, anti-aliased
+        non-ascii: #12pt monaco, anti-aliased
+        doublew-width?
+    }}}
++   window - new size, trans+blur, open=cursor {{{
++       transparency: ~10% #0
++       blur: 20% #10% 1/6?
++       new col x row: 140x50 #80x25
++       style,screen,space: screen=cursor #normal,none,current
+        keep profile in title: #off
+        disable session initiated window resize: #on - ansi escape code to resize window?
+    }}}
++   terminal - scroll line, TERM=xterm silence+flash bell {{{
++       scroll lines: unlimited  #1000
+        emulation: unicode (utf-8)
++           terminal-type: xterm #xterm-256color
+            xterm mouse reporting: #on
+            allow terminal to report window title: #off
+            use modern parser: #off
+            disable session printing: #off
+            disable save/restore alt screen: #off
+        notifications:
++           silence bell: on #off
+            enable growl: #on
++           flash visual bell: on #off (shows icon of bell - ugly)
+            show bell icon in tabs: #on
+        env
+            set locale vars: #on
+    }}}
+    session - no changes {{{
+    }}}
+    keys - no changes {{{
+ctrl-{number}
+shift-up
+ctrl-up
+ctrl-shift-up
+opt-up
+...
+    }}}
+    advanced - no changes {{{
+        triggers = regex trigger response
+            regex, action, params - match only on completed lines (\n or cursor move, nightly builds have 'instant')
+                regex: derived from perl regex
+                actions: bounce dock icon, highlight text, ring bell, run cmd, run coproc, run silent coproc, growl, send text, show alert
+                params: text with special chars \0, \#, \a (alert bell), \e, \n, \t, \xXX
+
+        smart selection
+        semantic history
+            cmd-click on filename runs something on that file?
+    }}}
+}}}
+profiles2 - colors, cursor=red+blink+smart, min contrast?, trans+blur, rowxcol, open-on-screen, scroll hide+unlimited {{{
+
+  setup Default
+  clone into Green and tmux (red)
+
+    general - use all defaults here?
+        basics
+        command
+        working directory
+        url schemes
+    colors - default is fore/back = white/black = c7c7c7/000000
+        basic colors
++           fore/back = e8e8d0/581414   warm red
++           fore/back = e8e8d0/101040   cool blu
++           fore/back = cccccc/382020   what grn
+        cursor colors
++           [x] smart cursor color (default unchecked)
+        ansi colors
+            color presets - see http://iterm2colorschemes.com/
+                solarized dark = transparent blue, foreground too grey, highlight too grey
+                tango dark = nearly opague red
+                birds of paradise = trans grey
+                funforest = close to my custom, but foreground too yellow
+                jackiebrown = lighter but still yellow
+            I like
+                dark background w/ fg=ffffd9 bg=370000
+    seafoam pastel
+    treehouse
+    redalert
++   paraiso dark
+neopolitan
+
+
+    text
+        cursor
+            (*) box
++           [x] blinking cursor (default unchecked)
+        text rendering
+        font
+?           12pt monaco 
+        non-ascii font
+    window (read l2r not d2r
+        window appearance
++           transparency 10%?
+?           blur - blur background windows a lot or a little or not at all = none
+        settings for new windows
++           cols,rows = 140x50
+            style = normal
++           screen = screen with cursor
+            space = current space
+        miscellaneous
+        background image
+    terminal    
+        scrollback buffer
++           [x] unlimited
+        terminal emulation
++           report terminal type = xterm
+            [x] enable mouse reporting
+                [x] report mouse wheel events
+            [ ] terminal may report window title (default unchecked)
+            [x] terminal may set tab/window title
+            [ ] disable session-initiated window resize
+            [x]dd
+        notifications
++           [x] silence bell (def unchecked)
+            [ ] flash visual bell (unchecked) shows ((bell)) icon in center of terminal 
+            [x] send growl (checked)
+                filter:
++               [ ] send bell   [x] send session-ended      # disable send bell
+                [ ] send idle   [ ] send new output
+                [x] send escape generated alerts
+            [x] show bell icon in tabs
+        environment
+            [x] set locale variables
+        shell integration
+            [x] insert newlines
+            [x] show mark indicators
+    session
+        [x] auto close when ends
+        [x] do not prompt
+    keys
+        ctrl- hex 0x??
+        already in global keys
+    advanced
+        no changes
+}}}
+keys - initialize bash,bbclient,vim {{{
+    ^\#-i   initialize bash {{{
+export PS1='\u@\h\$ ';
+export PATH=.:$HOME/bin:/usr/local/bin:/bin:/usr/bin:/usr/5bin:/usr/bsd:/usr/ucb:/sbin:/usr/sbin:/etc/usr/etc/usr/local/etc;
+export HISTTIMEFORMAT='%H:%M:%S ';
+alias ls='\ls -FCq';
+alias vi=vim;
+    }}}
+    ^\#-b   initialize bbclient {{{
+exec bash
+export PS1='\u@\h% ';
+export BBHOME=$HOME/bb;
+export BB=$BBHOME/bin/bb;
+export BBDISP=`awk '/BBDISPLAY/{print$2}' $BBHOME/etc/bb-hosts`;
+export BBCOMBOID="$$";
+. $BBHOME/etc/bbdef.sh;
+cd $BBHOME/ext;
+    }}}
+    ^\#-v   initialize vim {{{
+:syn off\n
+:set bg=dark expandtab tabstop=4 shiftwidth=4 nowrap hlsearch\n
+    }}}
+    cmd-left    send hex 0x01
+    cmd-right   send hex 0x05
+}}}
+arrangements - no changes {{{
+}}}
+pointer - remove 3f-swipes, focus follows mouse, 3f-tap = middle click (paste) {{{
+    # note: pastboard vs clipboard vs primary ? see https://unix.stackexchange.com/a/139193/27057   # talks of X11 PRIMARY + CLIPBOARD
+    mouse button + trackpad gesture actions
++       REMOVE three-finger-swipe down,up,left,right = prev,next win,tab respectively
+        right-button-click      open context menu           # two-finger-click
+        middle-button-click     paste from clipboard       # also double-tap?
++   [x] focus follows mouse
++   [x] three-finger-tap emulates middle click
+}}}
+advanced - steal focus when not-active+activate, cursor blink=0.15, whole-window visual bell {{{
+    badge
+    debugging
+    drawing
+    experimental
+    general
+?       number of autocomplete options to present               0  #20
+?       redraw screen after clear buffer menu item is selected  no #no
+    hotkey
+    mouse
+        always accept first mouse event on terminal window      no
++       when focus follows mouse is enabled, activate the window under cursor   yes
++       when focus follows mouse is enabled, steal focus even when inactive     yes
+        cmd-click in an active pane while iTerm2 isnt the active app invokes semantic history   no
+            cmd-click by os-standard will focus but not auto-raise
+    pasteboard
+    semantic history
+    session
+    tabs
+    terminal
+        automatically silence bell when it rings too much? Yes #no
++       custor blink speed 0.5 => 0.2   # though it only blinks when app is active (it could still have focus though)
+        prevent CSI3J from clearing scrollback history  = No default
++       visual bell flashes whole screen, not just bell icon = yes default no
+    tip of the day
+    tmux integration
+        tmux always uses the 'tmux' profile = yes default
+    warnings
+    windows
+        remember window locations even after windows are closed yes
+        terminal windows resize smoothly = no (default no - snap-to-char-grid)
+}}}
+}}}
+iTerm2 preferences act 3? = import from dir for plist, profiles {{{
+useful keys:
+    #k - clear screen+buffer
+    #/ - find cursor
+
+
+https://www.iterm2.com/documentation-one-page.html
+
+iterm2 knows about standard objects - user,host,path, .ssh, tmux, focus-follows-mouse {{{
+    user,host,path for profile switching - set via shell integration
+    scans local .ssh #WUT?!
+    command history, status, cut-n-paste buffers (too many!)
+    shell integration - change title, mark prompts, highlight errors, annotation, etc
+    tmux integration
+    focus-follows-mouse
+    custom hotkeys
+}}}
+# what I like: tmux + bury tmux; disable autocomplete? cmd-;
+
+general - word delims, smart window placement, non-native full screen, auto bury tmux {{{
+    startup
+    closing
+    magic
+    services
+    preferences
+    selection
+        characters considered part of word for selection:
++           set: ""        default was /-+\~_.
+    ?   applications in terminal may access clipboard? needed for cut-n-paste with tmux? default unchecked
+            see also: https://stackoverflow.com/a/12519334/2135
+    window
++       [x] smart window placement? (default unchecked)
++       [ ] native full screen windows (default checked)
+    tmux integration
++       [x] automatically bury the tmux client after connecting (default unchecked)
+}}}
+appearance - no-window-number, show border, hide scrollbar{{{
+    tabs
+        theme?
+    panes
+    system
+    windows and tab titles
++       [ ] show window number
+    dimming
+    window
++       [x] show border around window
++       [x] hide scrollbars
+}}}
+profiles - TERM=xterm, colors, smart+blinking cursor, min contrast?, transparency, rowxcol, open-on-screen, scroll hide+unlimited {{{
+
+  setup Default
+  clone into Green and tmux (red)
+
+    general - use all defaults here?
+        basics
+        command
+        working directory
+        url schemes
+    colors - default is fore/back = white/black = c7c7c7/000000
+        basic colors
++           fore/back = e8e8d0/581414   warm red
++           fore/back = e8e8d0/101040   cool blu
++           fore/back = cccccc/382020   what grn
+        cursor colors
++           [x] smart cursor color (default unchecked)
+        ansi colors
+            color presets - see http://iterm2colorschemes.com/
+                solarized dark = transparent blue, foreground too grey, highlight too grey
+                tango dark = nearly opague red
+                birds of paradise = trans grey
+                funforest = close to my custom, but foreground too yellow
+                jackiebrown = lighter but still yellow
+            I like
+                dark background w/ fg=ffffd9 bg=370000
+    text
+        cursor
+            (*) box
++           [x] blinking cursor (default unchecked)
+        text rendering
+        font
+?           12pt monaco 
+        non-ascii font
+    window (read l2r not d2r
+        window appearance
++           transparency 10%?
+?           blur - blur background windows a lot or a little or not at all = none
+        settings for new windows
++           cols,rows = 140x50
+            style = normal
++           screen = screen with cursor
+            space = current space
+        miscellaneous
+        background image
+    terminal    
+        scrollback buffer
++           [x] unlimited
+        terminal emulation
++           report terminal type = xterm
+            [x] enable mouse reporting
+                [x] report mouse wheel events
+            [ ] terminal may report window title (default unchecked)
+            [x] terminal may set tab/window title
+            [ ] disable session-initiated window resize
+            [x]dd
+        notifications
++           [x] silence bell (def unchecked)
+            [ ] flash visual bell (unchecked) shows ((bell)) icon in center of terminal 
+            [x] send growl (checked)
+                filter:
++               [ ] send bell   [x] send session-ended      # disable send bell
+                [ ] send idle   [ ] send new output
+                [x] send escape generated alerts
+            [x] show bell icon in tabs
+        environment
+            [x] set locale variables
+        shell integration
+            [x] insert newlines
+            [x] show mark indicators
+    session
+        [x] auto close when ends
+        [x] do not prompt
+    keys
+        ctrl- hex 0x??
+        already in global keys
+    advanced
+        no changes
+}}}
+keys - initialize bash,bbclient,vim {{{
+    ^\#-i   initialize bash {{{
+export PS1='\u@\h\$ ';
+export PATH=.:$HOME/bin:/usr/local/bin:/bin:/usr/bin:/usr/5bin:/usr/bsd:/usr/ucb:/sbin:/usr/sbin:/etc/usr/etc/usr/local/etc;
+export HISTTIMEFORMAT='%H:%M:%S ';
+alias ls='\ls -FCq';
+alias vi=vim;
+    }}}
+    ^\#-b   initialize bbclient {{{
+exec bash
+export PS1='\u@\h% ';
+export BBHOME=$HOME/bb;
+export BB=$BBHOME/bin/bb;
+export BBDISP=`awk '/BBDISPLAY/{print$2}' $BBHOME/etc/bb-hosts`;
+export BBCOMBOID="$$";
+. $BBHOME/etc/bbdef.sh;
+cd $BBHOME/ext;
+    }}}
+    ^\#-v   initialize vim {{{
+:syn off\n
+:set bg=dark expandtab tabstop=4 shiftwidth=4 nowrap hlsearch\n
+    }}}
+    cmd-left    send hex 0x01
+    cmd-right   send hex 0x05
+}}}
+arrangements - no change {{{
+    shows window placements based on current display/screen arrangement
+    how are arrangements figured out at launch?
+}}}
+pointer - remove 3f-swipes, focus follows mouse, 3f-tap = middle click (paste) {{{
+    # note: pastboard vs clipboard vs primary ? see https://unix.stackexchange.com/a/139193/27057   # talks of X11 PRIMARY + CLIPBOARD
+    mouse button + trackpad gesture actions
++       REMOVE three-finger-swipe down,up,left,right = prev,next win,tab respectively
+        right-button-click      open context menu           # two-finger-click
+        middle-button-click     paste from clipboard       # also double-tap?
++   [x] focus follows mouse
++   [x] three-finger-tap emulates middle click
+}}}
+advanced - steal focus when not-active, cursor blink=0.2 {{{
+    badge
+    debugging
+    drawing
+    experimental
+~       show key at cursor at password prompt                   yes
+    general
+        number of autocomplete options to present               0 (20 default)
+        redraw screen after clear buffer menu item is selected  no
+    hotkey
+    mouse
+        always accept first mouse event on terminal window      no
++       when focus follows mouse is enabled, activate the window under cursor   yes
++       when focus follows mouse is enabled, steal focus even when inactive     yes
+        cmd-click in an active pane while iTerm2 isnt the active app invokes semantic history   no
+            cmd-click by os-standard will focus but not auto-raise
+    pasteboard
+    semantic history
+    session
+    tabs
+    terminal
+        automatically silence bell with it rings too much
++       custor blink speed 0.5 => 0.2   # though it only blinks when app is active (it could still have focus though)
+        prevent CSI3J from clearing scrollback history  = No default
+        visual bell flashes whole screen, not just bell icon = yes default no
+    tip of the day
+    tmux integration
+        tmux always uses the 'tmux' profile = yes default
+    warnings
+    windows
+        remember window locations even after windows are closed yes
+        terminal windows resize smoothly = no (default no - snap-to-char-grid)
+}}}
+}}}
+
+bash
+vim
+    .vimrc
+    unicode normalization script?
+        http://www.unicode.org/reports/tr15/#Norm_Forms
+        https://stackoverflow.com/questions/6941842/whats-the-difference-between-omnifunc-and-completefunc-except-the-invocation-ke
+        :help compl-function
+        :help 'completefunc'
+        :help compl-omni
+        :help 'omnifunc'
+        :help complete-functions
+        https://vim.fandom.com/wiki/Custom_keyword_completion
+        https://vi.stackexchange.com/questions/9867/how-to-write-a-completefunc-omnifunc-that-tries-multiple-base-values
+ssh
+}}}
