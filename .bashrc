@@ -177,6 +177,7 @@ complete -A hostname -o default host
 complete -A hostname -o default rdiff
 
 # perl calculator
+# TODO: command completion that processes math expressions before execution!
 function pc() { perl -le '$expr=join(" ",@ARGV);foreach(0..3){$expr=~s/(\d)\s+(\d)/$1+$2/g};print eval $expr' "$@"; }
 function atb() { perl -le '$expr=join(" ",@ARGV);$expr=~s/(\d)\s+(\d)/$1+$2/g;printf"%.5f%%\n", 100*(1-(eval $expr)/(30*86400))' "$@"; }
 # perl bits display
