@@ -1,21 +1,27 @@
-# vim: foldmethod=marker:expandtab:tabstop=4:shiftwidth=4:nowrap
+# vim: set foldmethod=marker expandtab tabstop=4 shiftwidth=4 nowrap
+# above requires modelines=5 or similar -- see https://vim.fandom.com/wiki/Modeline_magic
+
+# TODO: find way to set these via writedefaults, applescript, or similar tool
+# TODO: measure battery levels over time for BT devices
+# TODO: window mgmt - disable cmd-m which minimizes current window
+
 config mac mbp or mini {{{
 physical {{{
-plugin mini with ONLY ONE hdmi connector
+plugin mini with ONLY ONE hdmi connector - else will just get lost figuring out current state, where a prompt is, etc
 select lang = english
 select country = usa
 allow location = no
-select timezone = est, philadelphia
+select timezone = EST || Philadelphia
+connect to wifi = SSID / password
+icloud = skip as insecure?
 
-connect to wifi = hedwig/******
+syspref / displays / refresh rate 50hz for Dell 34" curved U3415W to avoid intermittant blanking
+syspref / keyboard / setup bluetooth keyboard; modifier keys: capslock=control for each keyboard
+syspref / trackpad / setup bluetooth trackpad: enable tap to click; scroll+zoom/ disable direction natural
+syspref / touchid / add fingerprints for unlocking and autofill; disable apple pay + itunes
 
-icloud = skip
-
-add bluetooth keyboard, modifiers: capslock=control
-add bluetooth trackpad
-
-primary monitor - dell 34' curve = 50hz
-connect extra monitors, portrait
+connect extra monitors, rotate 90deg portrait
+recommend usb-c to hdmi cables directly vs d600 adapters!
 }}}
 diskspace 31gb used on relatively fresh system {{{
 user@macos% df -k
@@ -24,24 +30,27 @@ Filesystem    1024-blocks     Used Available Capacity iused               ifree 
 /dev/disk1s4    118181844  2097172  82425108     3%       1 9223372036854775806    0%   /private/var/vm
 = 31gb / 112gb = 28% used
 }}}
+
 System Preferences = display arrangement, capslock=control, trackpad tap-to-click + three-finger-drag, Fn+grid for screenshot {{{
     general
 +       appearance: light
         show scroll bars: automatically based on mouse/trackpad [d]
 +       click scroll bar: jump to spot clicked
-+       default web browser: chrome canary
++       default web browser: Google Chrome.app
 +       [x] ask to keep changes 
         [x] close windows when quitting an app (ie: do not restore them on restart)
 +       [ ] allow handoff to icloud
         [x] use LCD font smoothing
     desktop + screen saver
         desktop
+            Dynamic / Mojave?
++           Pictures / Mojave Day, Mojave Night, Ink Cloud (last one) ?
         screen saver 
-+           start after: 20min = Never
++           start after: 20min => Never
             [hot corners] / all disabled
     dock
-        size = 45%
-        mag = max
++       size = 45% => 25%
++       mag = enabled, max
         pos = bottom
         min = genie
         prefer tab = fullscreen only
@@ -56,10 +65,14 @@ System Preferences = display arrangement, capslock=control, trackpad tap-to-clic
         [x] auto arrange spaces based recent use
         [x] switch to app in its space
         [ ] group win by app
-+       [ ] displays have separate screens  (if checked windows cannot span displays)
-    dashboard [off]
++       [ ] displays have separate screens  (if checked windows cannot span displays but can be moved among them)
+    dashboard [off]  # :(
 
     lang+region
+        no changes, but the language chosen here determines word boundaries in places like chrome omnibar
+        advanced
+            can disable commas in numbers
+            can set dates to ISOnnnn which shows %Y/%m/%d-%H:%M:%S
     english
         region = united states
         first = sunday
@@ -71,50 +84,126 @@ System Preferences = display arrangement, capslock=control, trackpad tap-to-clic
                 number separator: grouping = , decimal = . ; currency=usdollar
                
     security+privacy
-    general
-    filevault
-    firewall
-    privacy
+        general
+            [x] require password [immediately] after screen/sleep
+        filevault
+            on
+        firewall
+            on
+        privacy
+            location    [ ] disable location services
+            camera      will be shared as needed per app later
+            microphone  will be shared as needed per app later
+            analytics   [ ] disable share mac+app
+            advertising [x] limit ad tracking
 
     spotlight
-        search results: disable all except applications+sysprefs
++       search results: disable all except applications+sysprefs
+        [x] allow spotlight suggestions in lookup
     notifications
-        ?slack change here?
+        Do Not Disturb
+            [ ] from to
+            [ ] when display sleeping (blank)
+            [x] when mirroring
++       change slack from banners to alerts?
+            does macos even use banners?
+        Sort Order: [Recents]
+
     display / window arrangement
-        drag-n-drop
+        drag-n-drop -- note: rotations+order are lost when add/sub display
+        I generally use the following: [media] [browse] [code/main] [comms]
+
     energy saver
-+       turn off display after = 10m => never
-+       [ ] automatic graphics switching - 
-+       [ ] prevent computer from sleeping automatically when display is off
-        [x] hard disk sleep
-        [x] wake on wan
-        [ ] start auto from powerfail
-        [x] enable power nap
-    keyboard / keyboard /
+        [ ] automatic graphics switching - disabled why? related to displaylink issues
+        power
++           turn off display after = 10m => 1hr
++           [x] prevent computer from sleeping automatically when display is off
+            [x] hard disk sleep
++           [ ] wake on wan (mini only)
+ ?          [ ] start auto from powerfail (mini only?)
+            [x] enable power nap
+        battery
+?           turn off display after = 2m => 10m
+            [x] hard disk sleep
+            [x] dim display
+            [ ] enable power nap
+        [x] show battery status in menu bar (laptop only)
+
+    keyboard / keyboard
+        Repeat 7/8
+        Delay 3/6
+        [x] adjust brightness
+        [ ] turn off blacklight after 5 sec of idle
+        Touchbar [App Controls] [x] show control strip
+        Fn Key to [show F1,2...]
+        [ ] show keyboard+emoji viewers in menu bar
+        [ ] use F1,F2... as standard keys on external keyboards (vs icons like play controls)
+
+?       [touchbar] = show expanded
 +       [modifier keys] caps lock key: Control
-+       touchbar = show expanded
-    keyboard / shortcuts; screen shots
-+       copy picture of selected area to the clipboard: was shift+ctrl+cmd+4, now Fn+F4 (just F4)
-+       save file of selected area to the clipboard: was shift+ctrl+cmd+4, now shift+Fn+F4 (just F4)
-        ? where do screenshots go? Desktop by default - how to change?
-    keyboard / shortcuts; all applications
-    keyboard/shortcuts/app
-#       ctrl-c  =   Copy
-#       ctrl-v  =   Paste
-#      ?ctrl-x  =   Cut
+
+    keyboard / text
+        no changes
+        [x] correct spelling
+        [x] capitalize words
+        [x] add period on doublespace
+        [x] touchbar suggestions
++       [ ] smart quote+dash
+        double quotes:
+        single quotes:
+
+    keyboard / shortcuts
+        launchpad+dock
+            [x] doc hide toggle                     alt-cmd-d
+            [ ] show launchpad                      -
+        mission control
+            [x] mission control (expose all)        ctrl-up
+            [ ] notification center                 -
+            [x] dont disturb toggle -               -
+            [x] app windows (expose app only)       ctrl-dn
+            [x] show desktop                        F11
+            [x] show dashboard                      F12
+            [x] mission control
+                [x] move left a space               ctrl-lf
+                [x] move right a space              ctrl-rt
+                [ ] switch to desktop 1             ctrl-1
+        keyboard
+            bunch o features I dont use
+        screenshots
++           copy picture of selected area to clip   shift+cmd+4 ==>       F4 (Fn+F4)
++           save picture of selected area as file   shift+cmd+4 ==> shift+F4 (Fn+F4)
+            ? where do screenshots go? Desktop by default - how to change?
+        services
+            no changes
+        spotlight
+            [x] spotlight search                    cmd-space
+        accessability
+            [ ] Zoom
+                [ ] Turn Focus Following on/off     none
+        app shortcuts
+            All Apps
+                [x] Show help                       shift-cmd-/
+        function keys
+            add app to show function keys in touchbar vs appcontrols #TODO what is appcontrols?
+
+    keyboard/shortcuts/app/all?
+#       Copy                    ctrl-c
+#       Paste                   ctrl-v
+#       Cut                     ctrl-x
     keyboard / shortcuts; Google Chrome
-        ctrl-n  =   New Tab
-        ctrl-w  =   Close Tab
-#       New Window
-#       New Tab
-#       Reopen Closed Tab
++       New Tab                 ctrl-t
++       Close Tab               ctrl-w
++       New Window              ctrl-n      # could be universal?
+#       Reopen Closed Tab       shift-cmd-t
 #       Undo
-#       Find...
-#       Find Next
-#       Find Previous
-#       Select All
+#       Find...                 ctrl-f
+#       Find Next               ctrl-g
+#       Find Previous           ctrl-b?
+#       Select All              ctrl-a?
+
     mouse
-+       scroll direction natural = off
+        none found?
+
     trackpad / point + click
 +       [ ] lookups
         [x] second click?
@@ -135,100 +224,229 @@ System Preferences = display arrangement, capslock=control, trackpad tap-to-clic
 
     printers + scanners
 +       [+] and it shows up!
+
     sound
         sound effects
++           alert sound [funk => submarine]
             play thru = selected output device
             alert vol = 100%
             [x] play ui sound effects
-            [ ] play feedback when volume changed
+?           [ ] play feedback when volume changed
             output
-            vol = 100%
+            vol = 50%
 +           [x] show volume in menu bar
         output tab
-            select sound device = mini external headphones
+            select sound device = mini external headphones | Dell USB Audio | Jabra Link 360 -- never displayport!
         input tab
+            Built-in Mic
+            Dell USB Audio
             HD Webcam C615
             HD Webcam C615
+            Jabra LINK 360
+
     startup disk
+        no changes
+
     icloud
         not logged in
+
     internet accounts (for mail, contacts, calendar, messages, etc
-        icloud
-        exchange
-        google
-        yahoo
-        aol
-        other
+        icloud      apple
+        exchange    outlook360
+        google      gmail
+        other       pop-based?
+
+    wallet+applepay
+        nope
+
     software
         [ ] auto update?
-?   wallet+applepay
+        [advanced]
+            [x] check for updates
+            [x] download when avail
+            [x] install macos updates
+            [x] install app updates from app store
+            [x] install sysdata and security updates
+
 ?   app store
+
     network
-        already setup
+        already setup!
         location: automatic
         list of interfaes: wifi, bluetooth, ethernet, thunderbolt
+            [x] auto join selected network
+            [ ] ask to join
+        [x] show wifi status in menu bar
+        [advanced]
+            wifi
+            tcpip
+            dns
+            wins
+            802.1x
+            proxies
+            hardware
+
     bluetooth
 +       [x] show bluetooth in menu bar
-        advanced:
+        [advanced:]
             [x] open bt setup if no keyboard
             [x] open bt setup if no mouse/pad
             [x] allow bt to wake computer
     extensions
+        no changes here -- expect to find displaylink driver I think
         all
-    photos editing
+        actions
+        photos editing
         share menu
         today
         finder
+        touchbar
+
     sharing
         all disabled
+
     touchid
+        add fingers
+        [x] unlock mac
+        [ ] apple pay
+        [ ] itunes + app store
+        [x] safari autofill
+
     user+groups
+        self + admin + guest accounts are here, can be enabled/disabled
+        self / password
+            click icon to edit
     parental controls
+        disabled
+
     siri
         disabled
+
     date+time
         clock tab
             [x] show in menubar
-            [x] digital [ ] analog
-            [ ] seconds
-            [ ] flash
-            [ ] 24h
-            [x] am/pm
-            [x] day of week
-            [ ] date
+            time:   [x] digital [ ] analog
+                    [ ] seconds
+                    [ ] flash
+                    [ ] 24h
+                    [x] am/pm
+            date:   [x] day of week
+                    [ ] date
++           [x] announce; [customize voice]
+                system | samantha/victoria/alex/fred(hawking)/custom
+                +   Ava
+                    Allison
+                    Trinoids - robot synth
+                    zarvox - robot synth2
+                [ ] custom rate
++               [x] custom volume 50% => 75%
+                    
+
     time machine
+        not enabled? requires a backup disk someplace
+
     accessibility 
+        display
+            cursor size: 1/6 => 2.5
++           [x] shake to locate
+        audio
+?           [x] flash screen on alert
+        keyboard
+            hardware
+                [ ] enable sticky keys
+                [ ] enabnle slow keys
+
         mouse + trackpad
+            [ ] enable mouse keys [options]    (use numberpad to move mouse)
+                [ ] press option 5x to toggle
+                [ ] ignore builtin trackpad when enabled
+                initial delay 4/5
+                max speed 7/11
+            -------
+                doubleclick speed 9/11
+            [x] springloading delay 6/11
+            [ ] ignore builtin trackpad when alternate is present
             [trackpad options]
-+       enable dragging: with three finger drag
-    accessibility / display
-        custor size: normal
-    profiles
+                scroll speed 5/8
+                [x] scroll [with inertia]
+++              [ ] enable dragging [without drag lock => three finger drag]
+            [mouse options]
+                scroll speed 5/8
+        switch control
+            not used
+
+    profiles (may not exist)
         prevent siri from being enabled
         chrome plugin to ask?
-        enterprise connect
+        enterprise connect (for SSO)
         signing cert
         login+screensaver corners (assholes) wvous-br-corner=5
-        firewall
-        auto-update office, prevent insider
+        firewall enabled
+        auto-update office and prevent insider
         onedrive disable personal sync
-        ppwifi certs
-    java
+        corp wifi certs
+
+    java (may not exist)
+        which is installed?
     }}}
+Finder Preferences {{{
+    General
++       show items on desktop: none
++       new finder window shows: HD => $HOME
++       [ ] open in tabs vs new windows
+    Tags
+        -
+    Sidebar
+        Favorites
++           [ ] Recents
++           [ ] iCloud
++           [ ] AirDrop
+            [x] Applications
+            [x] Desktop     (screenshots show up here)
+            [x] Documents
+            [x] Downloads
+            [ ] Movies
+            [ ] Music
+?           [ ] Pictures
++           [x] $HOME
+        Locations
+?           [ ] iCloud Drive
+            [ ] this computer - Users Mac
+            [x] Hard disks
+            [x] External disks
+            [x] CDs, DVDs, and iPods
+?           [x] Bonjour computers
+            [x] connected servers
+        Tags
++           [ ] Recent Tags
+    Advanced
+?       [x] show all filename extensions
+        [x] show warning before changing extension
+        [x] show warning before removing from icloud
+        [x] show warning before emptying trash
+        [ ] remove items from trash after 30days
+        keep folders ontop
+            [ ] when sorting by name
+            [ ] on desktop
++       when performing a search: Search this Mac => search this folder
+}}}
 apps from web {{{
-iterm2 - load prefs from ... ? crap
-chrome - signin + sync w/ google
-spotify - signin w/ facebook
-logitech - "Camera Settings" v2.5.12    https://support.logitech.com/en_us/product/hd-pro-webcam-c920s/downloads
+iterm2 - https://www.iterm2.com/downloads.html setup prefs below
+chrome - https://www.google.com/chrome/         signin + sync w/ google?  maybe not always!
+spotify - https://download.scdn.co/SpotifyInstaller.zip install and signin w/ facebook
+logitech - "Camera Settings" v2.5.12    https://support.logitech.com/en_us/product/hd-pro-webcam-c920s/downloads    # found in appstore but doesnt know how to ask for privacy access to cam+mic
+logitech - touchmouse server: https://support.logi.com/hc/en-us/articles/360025297933 https://download01.logi.com/web/ftp/pub/techsupport/mouse/mac/touchmouse1.0.dmg
 skype - skype.com - use old credentials
 }}}
-
 apps from store {{{
 slack
 vox + vox.rocks/ control extension
 }}}
+apps from cmdline {{{
+git - triggers install of Xcode components
+}}}
 apps from brew {{{
-# install
+# install brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" #{{{
 ==> This script will install:
 /usr/local/bin/brew
@@ -260,6 +478,7 @@ apps from brew {{{
 # export PATH=/usr/local/opt/gettext/bin:/usr/local/opt/openssl/bin:$PATH
 
 }}}
+brew analytics off
 brew install python3 #{{{
 ==> Installing dependencies for python: gdbm, openssl, readline, sqlite and xz
 ==> Installing python dependency: gdbm
@@ -543,51 +762,11 @@ Bash completion has been installed to:
   /usr/local/etc/bash_completion.d
 }}}
 }}}
+what about docker? terraform? consul?
 
-Finder Preferences {{{
-    General
-+       show items on desktop: none
-+       new finder window shows: HD => $HOME
-+       open in tabs vs new windows: disabled
-    Tags
-        -
-    Sidebar
-        Favorites
-+           [ ] Recents
-+           [ ] iCloud
-+           [ ] AirDrop
-            [x] Applications
-            [x] Desktop     (screenshots show up here)
-            [x] Documents
-            [x] Downloads
-            [ ] Movies
-            [ ] Music
-            [x] Pictures
-+           [x] $HOME
-        Locations
-            [x] iCloud Drive
-            [ ] this computer - Users Mac
-            [x] Hard disks
-            [x] External disks
-            [x] CDs, DVDs, and iPods
-            [x] Bonjour computers
-            [x] connected servers
-        Tags
-+           None
-    Advanced
-+       [x] show all filename extensions
-        [x] show warning before changing extension
-        [x] show warning before removing from icloud
-        [x] show warning before emptying trash
-        [ ] remove items from trash after 30days
-        keep folders ontop
-            [ ] when sorting by name
-            [ ] on desktop
-+       when performing a search: Search this Mac => search this folder
-}}}
 hammerspoon prefs popup {{{
 +   [x] launch hammerspoon at login
-    [x] check for updates
++   [x] check for updates
 +   [ ] show dock icon
     [x] show menu icon
     [ ] keep console ontop
@@ -606,6 +785,9 @@ iTerm2 features {{{
     smart selection based on regex rules
 }}}
 iTerm2 prefs {{{
+quickload prefs from github via General/Preferences/ [x] Load preferences from a custom folder or URL: select homedir - but it does not follow symlinks!  nav to github repo
+do not copy local prefs to subdir
+
 general - quit on close, load prefs from $HOME/bin/, smart placement, hidescroll, non-native fullscreen, auto-bury-tmux {{{
     startup
         #open default window arrangement: on #off (not available on mini)
@@ -1103,10 +1285,120 @@ advanced - steal focus when not-active, cursor blink=0.2 {{{
 }}}
 }}}
 
+Chrome {{{
+normally I'd just login and sync -- but need better approach...
+
+Settings {{{
+    People
+        Sync+Google - login, sync everything
+        Manage account link
+        Chrome name+pic (defaults to first initial)
+        Import Bookmarks+settings
+    Autofill
+        Passwords
+        Payments
+        Addresses
++           add
+    Appearance
+        Themes
+        Show Home 
++       Show Bookmarks enable
+        Font: medium
+        Customize Fonts
+        Page Zoom: 100%
+        Tab highlights links+fields: enabled
+        Show warning before quit: enabled
+    Search Engine
+        goog,bing yahoo duck face git
+    Default browser
+        chrome
+    On Startup
++       New Tab => Continue
+
+    Privacy
+        sync
+        chrome signin: enabled
++       do not track: disabled => enabled
++       allow payment request: enabled => disabled
+        preload pages: enabled
+        manage certs
+        manage keys
+        site settings
+        clear data
+    Languages
+        spell check basic
+    Downloads
+        ask before each: disabled
+    Printing
+    Accessability
+    System
+        hardware acceleration: enabled
+        proxy settings link
+    Reset
+}}}
+UI bookmark apps menu / disable Show Apps Shortcut
+Extensions {{{
+
+Developer mode: enable only if loading unpacked custom extensions
+
++   Auto Copy (jamie hill)
++   Empty New Tab Page (thakis@chromium.org)
++   This Frame (iisisoft)
++   Don't add custom search engines (greg sadetsky)
++   AdBlock (getadblock.com)
++   Stylus (stylus.openstyles)
+        TODO: detail list of customized styles
++   JSON Formatter (callumlocke.co.uk)
+
+?   Social Fixer for Facebook (socialfixer.com)
+?   Readline
+?   Slack Desktop Notifications Visibilty Helper
+?   Utime
+?   Vimium
+?   Chrome Regex Search
+?   Logictech Smooth Scrolling
+
+#   Boomerang SOAP REST Client
+#   Change Timezone
+#   bl.ocks.org
+#   JSONView
+#   Cisco Webex Extension
+#   Polycom RealPresense Web Suite
+#   Pretty Beautiful Javascript
+#   PrettyPrint
+#   Tab Modifier
+#   xLabs Head/Eye/Gaze Tracker
+}}}
+Search Engines {{{
+gmail   https://mail.google.com/
+gcal    https://calendar.google.com/
+TODO: could add search engines via extension!
+}}}
+BookMarks Folders {{{
+Corp
+Team
+Self
+Personal
+}}}
+BookMarklets {{{
+ardvark
+tsdb
+}}}
+password manager... lastpass?
+}}}
+
+Other tool customizations:
 bash
+    see .backrc in github
+ssh
+    keepalive
+    canonicalization
+    config.pac
+    shell function helpers
+    certs+keys
 vim
-    .vimrc
-    unicode normalization script?
+    see .vimrc in github
+    TODO: unicode normalization script?
         http://www.unicode.org/reports/tr15/#Norm_Forms
         https://stackoverflow.com/questions/6941842/whats-the-difference-between-omnifunc-and-completefunc-except-the-invocation-ke
         :help compl-function
@@ -1116,5 +1408,4 @@ vim
         :help complete-functions
         https://vim.fandom.com/wiki/Custom_keyword_completion
         https://vi.stackexchange.com/questions/9867/how-to-write-a-completefunc-omnifunc-that-tries-multiple-base-values
-ssh
 }}}
