@@ -191,6 +191,7 @@ System Preferences = display arrangement, capslock=control, trackpad tap-to-clic
 #       Paste                   ctrl-v
 #       Cut                     ctrl-x
     keyboard / shortcuts; Google Chrome
+        TODO: change these to hammerspoon so that BOTH ctrl + cmd can be modifiers
 +       New Tab                 ctrl-t
 +       Close Tab               ctrl-w
 +       New Window              ctrl-n      # could be universal?
@@ -761,6 +762,7 @@ For compilers to find icu4c you may need to set:
 Bash completion has been installed to:
   /usr/local/etc/bash_completion.d
 }}}
+brew install jq
 }}}
 what about docker? terraform? consul?
 
@@ -1296,6 +1298,7 @@ Settings {{{
         Import Bookmarks+settings
     Autofill
         Passwords
++           Offer to save passwords: disabled if using lastpass or similar
         Payments
         Addresses
 +           add
