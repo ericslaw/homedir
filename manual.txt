@@ -642,6 +642,10 @@ They will install into the site-package directory
 
 See: https://docs.brew.sh/Homebrew-and-Python
 }}}
+#sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
+#brew install pyenv
+#eval "`pyenv init -`"
+
 brew install wget #{{{
 ==> Installing dependencies for wget: gettext, libunistring and libidn2
 ==> Installing wget dependency: gettext
