@@ -44,7 +44,7 @@ iabbr _uniq sub uniq  { my %seen=(); return grep { ! $seen{$_}++ } @_; };
 iabbr _slurp sub slurp {return unless -f $_[0];do{local(@ARGV)=$_[0]; return (wantarray) ? <> : join"",<> }}
 iabbr _natsort sub natsort    {return map{$_->[0]}sort{$a->[1]cmp$b->[1]}map{[$_,naturalize($_)]}@_}
 iabbr _natural sub naturalize {return join"",map{!m/\d/?$_:sprintf"%.*d",$_[1]?$_[1]:4,$_}split/(\d+)/,$_[0]}
-iabbr _week  Week 2019-01-xx {{ {<C-M>U:<C-M>M:<C-M>T:<C-M>W:<C-M>R:<C-M>F:<C-M>S:<C-M>}} }
+iabbr _week  Week 2019-07-28 {{ {<C-M>U:<C-M>M: SOD xxxx EOD xxxx<C-M>T: SOD xxxx EOD xxxx<C-M>W: SOD xxxx EOD xxxx<C-M>R: SOD xxxx EOD xxxx<C-M>F: SOD xxxx EOD xxxx<C-M>S:<C-M>}} }
 iabbr _## ################################################################################
 iabbr _#- #-------------------------------------------------------------------------------
 abbr _trim :%s/  *$//g<C-M>
