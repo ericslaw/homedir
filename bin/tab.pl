@@ -1,12 +1,13 @@
 #!/usr/bin/perl
 # tab.pl - csv table manipulation - normalize and visualize columnar data
-# --include=pattern    # built in grep include/exclude
+# --include=pattern     # built in grep include/exclude
 # --exclude=pattern
-# --delim=pattern      # set delimiter
-# --norm=RANGE         # set normal - defaults to 0-99 if not RANGE specified
-# --sort=COLSPEC       # sort column by number (starting at 1), use negative numbers to sort in reverse
-# --pad=N              # add extra N spaces between columns
-# --bar=WIDTH          # draw barchart of normalized values WIDTH chars wide after each line
+# --delim=pattern       # set delimiter
+# --norm=RANGE          # set normal - defaults to 0-99 if not RANGE specified
+# --sort=COLSPEC        # sort column by number (starting at 1), use negative numbers to sort in reverse
+# --pad=N               # add extra N spaces between columns
+# --bar=WIDTH           # draw barchart of normalized values WIDTH chars wide after each line
+# --max=W               # input/output maximum of W columns
 #
 use strict;
 use Scalar::Util qw(looks_like_number);
@@ -27,20 +28,24 @@ my $excl;
 my $norm;
 my $minwidth;
 my $spacer;
+my $maxcol;
 my $zero = "0"; # how to handle zero cell values - if set, replace cells with zero with this value
 
 GetOptions(
     "g|grep|in|include=s" => \$incl,
     "gv|grepv|vgrep|ex|exclude=s" => \$excl,
-    "sep=s" => \$sep,
-    "d|delim=s" => \$delim,
+    "id|sep=s" => \$sep,
+    "maxcol=i" => \$maxcol,
+    "d|od|delim=s" => \$delim,
     "x|bar:s" => \$bar,
     "s|sort=i" => \$sort,
     "n|norm|normalize:1" => \$norm,
     "w|width|mw|minwidth:1" => \$minwidth,
     "pad|space:1" => \$spacer,
     "z|zero=s" => \$zero,
+    
 );
+$sep ||= $delim;
 $bar-- if $bar>0;
 my $sortrev = -1 if $sort < 0;
 $sort = abs($sort) - 1 if defined $sort;
@@ -49,7 +54,7 @@ while(<>){
     chomp;
     next if $incl && $_ !~ $incl;
     next if $excl && $_ =~ $excl;
-    my @F = split $sep, $_;
+    my @F = split $sep, $_, $maxcol;
     foreach ( 0 .. $#F ){
         $F[$_] = sprintf "%.3f", $F[$_] if $F[$_] =~ /^\s*-?\d*\.\d+\s*$/; # reformat float precision to ensure width calculations are accurate
         $len[$_] = length $norm if $norm > length $F[$_];
