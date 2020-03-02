@@ -32,12 +32,19 @@ export PATH PS1
 #export PATH=$PATH:$ANT_HOME/bin:$JAVA_HOME/bin
 
 
+function inch {
+    perl -le 'print 0+$ARGV[0]*12 + $ARGV[1]' $@
+}
 function dropzone {
     sftp -o KexAlgorithms=diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-dss dropzone.corp.com
 }
 
 function fage {
     perl -le 'foreach(@ARGV){$mtime=(stat($_))[9];$age=time-$mtime;print join" ",$age,$_}' $@
+}
+
+function mgrep {
+    perl -MList::Util=all -ne 'BEGIN{@patt=@ARGV;@ARGV=()}$line=$_;print if all {$line =~ /$_/i} @patt' $@
 }
 
 export IGNOREEOF=5
@@ -74,12 +81,16 @@ function vimdiffgit {
     git difftool --tool=vimdiff --no-prompt HEAD^^ $@
 }
 
+function findgrep {
+    find . -type f -exec egrep -i "$@" /dev/null "{}" \; ;
+}
+
 ##### sshkey.sh
 function sshcreatekey {
     # [keyname [comments]]
     key=$1; shift;
     test -n "$key" || key="id_rsa"
-    ssh-keygen -t rsa -f ~/.ssh/$key
+    ssh-keygen -t rsa -b 4096 -f ~/.ssh/$key -C "$@"
     # it will prompt for passphrase interactively
 }
 function sshpushkey {
@@ -128,6 +139,7 @@ function sshinit {
     sshkey=""
     key="id_rsa"
     if [ "x$1" == "x" -a -f ~/.ssh/$key ]; then
+        # note: macos ssh-add -K flag supplies passphrase from the keychain
         ssh-add ~/.ssh/$key
         sshkey="$sshkey -i $HOME/.ssh/$key"
     fi
@@ -168,6 +180,30 @@ alias ls="\ls -FCq"
 alias perltidy='perltidy -ndsm -st -ce -bar -nola -l=220'
 alias vi='vim -o'
 #alias ssh=go
+# LESS is not MORE - why cannot get -EFi to work? both -E and -F result in empty file :(
+# -C    = clear screen first
+# -c    = clear screen vs scroll
+# -E    = quit at eof 1st time
+# -e    = quit at eof 2nd time
+# -F    = force quit if one screen or less
+# -g    = highlight last search match only (vs all)
+# -G    = suppress highlighting
+# -h#   = scroll-backward limit
+# -i    = ignorecase search unless Upcase search
+# -I    = ignorecase always
+# -j#   = jump target position; position at row # with top of screen = 1
+# -J    = show match status column at left
+# -m    = prompt like more
+# -M    = prompt like more verbosely
+# -n    = suppress line numbers
+# -N    = line number from start of display
+# -ofile= overwrite file if stream stdin
+# -q    = quiet (no bell at eof
+# -s    = squeeze blank lines
+# -S    = chomp long lines (vs wrap or fold)
+export LESS="-XEFi"
+alias more=less
+
 
 # set some commands to auto-complete hostnames as arguments
 complete -A hostname -o default ssh
@@ -178,7 +214,8 @@ complete -A hostname -o default rdiff
 
 # perl calculator
 # TODO: command completion that processes math expressions before execution!
-function pc() { perl -le '$expr=join(" ",@ARGV);foreach(0..3){$expr=~s/(\d)\s+(\d)/$1+$2/g};print eval $expr' "$@"; }
+function pc() { perl -le '$expr=join(" ",@ARGV);foreach(0..3){$expr=~s/(\d)\s+(\d)/$1+$2/g};printf"%s\n", 0+eval $expr' "$@"; }
+function pc2() { perl -le '$expr=join(" ",@ARGV);foreach(0..3){$expr=~s/(\d)\s+(\d)/$1+$2/g};print eval $expr' "$@"; }
 function atb() { perl -le '$expr=join(" ",@ARGV);$expr=~s/(\d)\s+(\d)/$1+$2/g;printf"%.5f%%\n", 100*(1-(eval $expr)/(30*86400))' "$@"; }
 # perl bits display
 function bits() { perl -le 'print join" ",split/(.{8,8})/,unpack"B32",pack"N*",eval {join" ",@ARGV}' $@ ;}
@@ -228,7 +265,14 @@ alias untargz='cat \!*|gunzip|tar vxf -'
 #alias trace='truss -faeildD'
 alias trace='strace -fFqtttTx'
 alias manf='nroff -man'
+alias name=$HOME/org/org.pl
 
+
+# https://stedolan.github.io/jq/manual/#Colors
+#export JQ_COLORS="1;30:0;39:0;39:0;39:0;32:1;39:1;39" # default
+#export JQ_COLORS="1;30:0;39:0;39:0;39:0;32:1;39:1;39"
+# jq monochrome, sorted
+alias jq='jq -M'
 
 ENSCRIPT="-DDuplex:true --no-header --border --nup=2 --nup-xpad=0 --nup-ypad=10 --quiet --pass-through --mark-wrapped-lines=arrow --printer-options=-h --underlay=elaw --ul-angle=270 --ul-position=-50-50"
 export ENSCRIPT
@@ -248,17 +292,17 @@ function h {
 
 function when {
     if [ -z "$1" ]; then
-        TZ="US/Pacific" perl -MPOSIX=strftime -pe 's{\b(\d{10})\b}{strftime"%Y/%m/%d-%H:%M:%S-%Z $1",localtime($1)}eg'
+        TZ="US/Eastern" perl -MPOSIX=strftime -pe 's{\b(\d{10,10})\d*}{strftime"$1 %Y/%m/%d-%H:%M:%S",localtime($1)}eg'
     else
-        TZ="US/Pacific" perl -MPOSIX=strftime -e 'map {s{\b(\d{10,10})\b}{print strftime"%Y/%m/%d-%H:%M:%S-%Z $1\n",localtime($1)}eg} @ARGV' $@
+        TZ="US/Eastern" perl -MPOSIX=strftime -e 'map {s{(?<!\d.)\b(\d{10,10})\d*}{print strftime"$1 %Y/%m/%d-%H:%M:%S\n",localtime($1)}eg} @ARGV' $@
 #       perl -MPOSIX=strftime -e 'map {printf"%s %s %s\n",scalar localtime($1),$1,$_ if $_ =~ /} @ARGV' $@
     fi
 }
 function rwhen {
-    perl -MTime::Local -le '$ENV{TZ}="US/Pacific";@T=reverse split/\D+/,join" ",@ARGV;$T[4]--;print timelocal @T' $@
+    perl -MTime::Local -le '$ENV{TZ}="US/Eastern";@T=(reverse split/\D+/,join" ",@ARGV,0,0,0);$T[4]--;print timelocal splice@T,0,6' $@
 }
 function age {
-    perl -MTime::Local -le '$ENV{TZ}="US/Pacific";@T=reverse split/\D+/,join" ",@ARGV;$T[4]--;$then=timelocal @T;$age=time-$then;foreach(qw(1 60 3600 86400 604800 2628000 31536000 )){printf"%15.3f %12d\n",$age/$_,$_}' $@
+    perl -MTime::Local -le '@T=reverse splice[split/\D+/,join" ",@ARGV,0,0,0], 0,6;$T[4]--;$then=timelocal @T;$age=time-$then;foreach(qw(1 60 3600 86400 604800 2628000 31536000 )){printf"%15.3f %12d\n",$age/$_,$_}' $@
 }
 function oldrwhen {
     perl -e 'use Date::Manip;$stamp=UnixDate(ParseDate(join(" ",@ARGV)),"%s");printf"%d %s\n",$stamp,scalar localtime($stamp)' $@
@@ -295,9 +339,9 @@ function pdump {
 #        join "",map {sprintf("%03d%s",$_,((/^\d+$/)?"":$_));} grep {/./} split/(\d+|\D+)/}<>' $@
 #}
 
-alias rcsinit='mkdir -p RCS;ci -iu'
-alias rcsco='co -l'
-alias rcsci='ci -u'
+#alias rcsinit='mkdir -p RCS;ci -iu'
+#alias rcsco='co -l'
+#alias rcsci='ci -u'
 
 
 function json {
