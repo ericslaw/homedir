@@ -44,7 +44,13 @@ iabbr _uniq sub uniq  { my %seen=(); return grep { ! $seen{$_}++ } @_; };
 iabbr _slurp sub slurp {return unless -f $_[0];do{local(@ARGV)=$_[0]; return (wantarray) ? <> : join"",<> }}
 iabbr _natsort sub natsort    {return map{$_->[0]}sort{$a->[1]cmp$b->[1]}map{[$_,naturalize($_)]}@_}
 iabbr _natural sub naturalize {return join"",map{!m/\d/?$_:sprintf"%.*d",$_[1]?$_[1]:4,$_}split/(\d+)/,$_[0]}
-iabbr _week  Week 2019-07-28 {{ {<C-M>U:<C-M>M: SOD xxxx EOD xxxx<C-M>T: SOD xxxx EOD xxxx<C-M>W: SOD xxxx EOD xxxx<C-M>R: SOD xxxx EOD xxxx<C-M>F: SOD xxxx EOD xxxx<C-M>S:<C-M>}} }
+iabbr <expr> _week "Week ".strftime("%Y/%m/%d",str2nr(strftime("%s"))-86400)." {{ {<C-M>U:<C-M>M: SOD xxxx EOD xxxx<C-M>T: SOD xxxx EOD xxxx<C-M>W: SOD xxxx EOD xxxx<C-M>R: SOD xxxx EOD xxxx<C-M>F: SOD xxxx EOD xxxx<C-M>S:<C-M>}} }"
+iabbr <expr> _now strftime("%Y/%m/%d-%H:%M:%S")
+iabbr <expr> _epoch strftime("%s")
+iabbr <expr> _min strftime("%I:%M%P")
+iabbr _standup standup {{{<C-M>k<C-M>c<C-M>t<C-M>j<C-M>o<C-M>e<C-M>n<C-M>d<C-M>b<C-M>m<C-M>e*<C-M>a<C-M>j<C-M>    }}}<ESC>11ko
+" can move after expanding!
+"iabbr forr  for(int i=0; i<len; i++)<ESC>10hi
 iabbr _## ################################################################################
 iabbr _#- #-------------------------------------------------------------------------------
 abbr _trim :%s/  *$//g<C-M>
@@ -74,6 +80,19 @@ function MyFoldText()
   return sub
 endfunction
 
+"function InsertWeek()
+"  return
+"endfunction
+
+function MyCalc()
+  let oldline = getline(".")
+  let pattern = "[0-9().*/+-][ 0-9().*/+-]*"
+  let oldstr = matchstr( oldline, pattern )
+  let newstr = printf("%s = %.2f ",oldstr,eval(oldstr))
+  let newline = substitute(oldline,oldstr,newstr,"")
+  echom newline
+  call setline(".",newline)
+endfunc
 
 "TODO: build function to map common unicode to ascii  '\%xHH','newchar'
 " note: functions must start with uppercase!! (wut?)
@@ -107,3 +126,5 @@ let Tlist_Ctags_Cmd='/bin/ctags'
 " dcbpw.org?
 
 autocmd BufReadPost TODO.txt /ZZZZ
+autocmd BufReadPost OLO.txt /ZZZZ
+autocmd BufReadPost *.tf set tabstop=2 shiftwidth=2
