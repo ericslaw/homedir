@@ -52,6 +52,10 @@ __DATA__
 # state/status
 # step/skip
 # this/that
+# resp/time
+# latency/duration
+# all/total
+# work/valid
 # ::: Sequences :::
 # red green blue
 
@@ -119,6 +123,8 @@ min/max
 move/remove
 move/size
 old/new
+pre/post
+pre/neo
 on/off
 open/close
 open/save
@@ -139,6 +145,9 @@ rise/fall
 same/diff
 select/clear
 self/other
+self/them
+cis/trans
+same/diff
 send/recv
 set/clr
 set/reset
@@ -162,3 +171,20 @@ unconnect/disconnect
 up/dn
 up/down
 was/now
+abs|rel
+absolute|relative
+zero|not0
+drop/rise
+dip/spike
+current/recent
+all/per
+head/tail
+parent/child
+spawn/reap
+fork/kill
+wide/thin
+tall/short
+grow/shrink
+expand/shrink
+expand/reduce
+big/small
