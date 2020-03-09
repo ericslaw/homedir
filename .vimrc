@@ -1,6 +1,8 @@
 " standard settings
 " TODO: isolate vi vs vim options for when 'alias vi=vim' was not performed
-set display+=uhex isprint=
+set display+=uhex isprint= " display non-ascii as hex bytes like <c2><a0>
+"set encoding=utf-8 " display utf8 chars naturally
+"set fileencodings=ucs-bom,utf-8,default,latin1
 set bg=dark
 set ignorecase
 set smartcase
