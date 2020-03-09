@@ -1,0 +1,763 @@
+macOS Setup Prefs {{{
+    mac setup {{{
+see https://github.com/ericslaw/homedir
+    }}} mac setup
+    bash setup {{{
+    cp flags (macos specific?) {{{
+    -v      Verbose
+    -p      Preserve permissions, ownership, times
+    -r      Recursive (+follow links)
+    -R      Recursive? but with weird limitations
+
+    -i      Interact if overwrite
+    -f      Force overwrite
+    -n      do Not overwrite
+
+    -L|P    Link following|Prevent link following
+    -H      Hide links, Hard copy? not quite
+
+    }}}
+    }}}
+    macos modifier keys logic {{{
+https://apple.stackexchange.com/a/181263/1120
+https://developer.apple.com/design/human-interface-guidelines/macos/user-interaction/keyboard/
+    also says list in order? Control, Option, Shift, Command
+    ^\_#
+
+    key     use
+    cmd     main        common commands like open,find,copy,xut,paste,new,tab,close,quit
+    shift               modify/reverse
+    ctrl    avoid       extra shortcuts, ctrl-click (=right-click w/out raise?), otherwise avoid
+    opt     sparingly   advanced
+    fn                  keyboard key modifier - expose function keys from action keys, shift-fn-eject = lock?
+
+System Actions
+    cmd+space   spotlight launch/search
+    cmd+tab     recent app switcher
+    ctrl-shift-eject    sleep display
+
+Window Mgmt
+    cmd+drag    move window without activate+raise
+    cmd+~       next window
+    cmd+`
+
+
+Common App Actions
+cmd+key     for common operations -
+    a       select all
+    cxv     copy-cut-paste
+    z       undo
+    ,       prefs
+    h       hide        <= hides all app windows - macOS specific
+    m       minimize    <= minimize window to taskbar
+    +       zoom in
+    0       zoom zero (unzoom)
+    -       zoom out
+    o       open {{something}}
+    /       find {{something}} - cursor, keystrokes
+    f       find string
+    g       find next string
+    arrow   start/end of line/body
+
+    r       reload
+    n       new window
+    t       new tab
+    w       close window
+    q       quit application
+
+    b       bold
+    i       italics
+    u       underline
+
+general concepts
+    add shift for more/less  extra / constrained / modified / reversed
+    add opt/alt for advanced
+
+special notes on arrow modifiers
+    cmd-up/down
+    cmd-left/right      keyboard layout (not used by me)
+    shift-arrow         modify highlight
+    ctrl-arrow          move focus cell
+    opt-arrow           not used
+
+    }}}
+}}}
+
+gmail prefs / settings {{{
+    general tab - compact, add pic, add sig, snippets off {{{
++       gear / display density = compact
+        gear / preview - horizontal
++       max page size: 100
+        undo send period: 5sec
+?       reply behavior: reply (vs reply-all)
+        hover actions: enabled ?
+        images: always display (vs ask) - always required for dynamic email
+        dyn email: ? lightning-bolt next to mesg - quick rsvp,other?
+        smart compose personalization? on
+        smart compose suggestions? on
+        conversation view (grouping) on
+        nudges
+        send and archive? hide
+        smart reply? on
+?       preview pane: mark read after 3 sec
+        desktop notif: off
+        stars: click to add/rotate thru star types; default yellow star
+            4stars preset = yellow blue check bang
+        keyboard shortcuts: off
+        button labels: icon (vs text)
++       my picture (profile pic) - upload
+        contacts: add new contexts to 'other contacts' for autocomplete (vs add manually)
++       signature:
++       snippets: show (vs no snippets) = email 1-2line preview
+        vacation responder: off
+    }}}
+    labels tab - show important+reports {{{
+        sys labels
+            inbox
+            starred - show
+            snoozed - show
++           important - show
+            chat - hide
+            sent - show
+            scheduled - show if unread
+            drafts - show
+            all mail
+            spam - hide
+            trash - hide
++           reports - show
+        categories     in label, in mesg
+            categories  - hide
+            social      - hide  - hide
+            updates     - hide  - hide
+            forums      - hide  - hide
+            promotions  - hide  - hide
+    }}}
+    inbox tab {{{
+    inbox type: unread first; default|important|unread|starred|priority first
+    sections: unread=25items, else=50items
+    unread count: first section
+    importance markers: show; use past actions to predict
+    filtered email: dont
+    }}}
+    accounts tab
+    filters tab {{{
+https://support.google.com/mail/answer/7190?hl=en
+fields:
+    from: to: cc: subject: label:
+    has:{{attachment|drive|document|spreadsheet|presentation|youtube}}
+    filename:{{fullname|ext}}
+    is:{{{important|starred|snoozed|unread|read}}}
+    category:
+    notme cannot use to: from: fields: # see https://stackoverflow.com/a/32227368/2135
+    boolean logic: OR AROUND
+    }}}
+    forwarding tab
+    add-ons {{{
+available add-ons:
+    asana
+    atlassian jira
+    slack
+    todoist
+    trello
+    zoom
+    }}}
+    chat
+    advanced - preview pane + unread count {{{
++   preview pane - enabled
+    auto-advance
+    template response
+    custom keyboard shortcuts
+    right-side chat
++   unread message
+    }}}
+    offline - n/a
+    themes = dusk {{{
++   romain guy - catapiller on leaf
++   turf - grass
++   dusk - med-dark blue
+    }}}
+}}}
+gcal prefs {{{
+    density + color / color=modern+white, density=responsive
+    settings
+        general - noshow declined, reduce past, custom=2w, no keyboard {{{
+            lang + region = default
+            time zone = ask to update current
+            world clock = ? can add timezones
+            event settings = default duration=60m, speedy=end early, play notif sounds
+            view options = noshow declined, custom=2w {{{
+    +   show declined = off
+    +   reduce past events = on
+        start week = sunday
+    +   custom view = 2weeks
+        alt cal= none
+            }}}
+            events from gmail = auto add, visible only me
+            working hours = exposed to others, warns not avail
+            main work location = cannot set
+    +       keyboard shortcuts = disable
+        }}}
+        add calendar(s) {{{
+            engineering calendar
+                https://calendar.google.com/calendar/embed?src=olo.com_i8rqsi080ibpdg1goe9i1lhrqc%40group.calendar.google.com&ctz=America%2FNew_York
+                contains tech talks, platform activity
+            engineering teams
+                https://calendar.google.com/calendar/embed?src=olo.com_c0aqejr6j7usv95ok34rcqj64g%40group.calendar.google.com&ctz=America%2FNew_York
+                contains per-team standups and lots of other stuff
+        }}}
+        import export
+        settings for my
+            settings
+                access
+                    available for team
+                    share with person (spouse?)
+                event notif
+                    notif 10min
+                    notif 2min
+                    notif 1min
+}}}
+
+zoom prefs {{{
++   general {{{
++       [x] dual monitors = dual windows: share + attendees/participants
++       [ ] full screen when joining
++       [ ] full screen when shared
+        [ ] max zoom when shared
+        [x] scale
++       [ ] prompt before leave
+        [ ] show duration
+        [x] zoom to menu bar
+        [x] side by side mode
+        advanced - requires zoom signin - what credentials do I use?  google {{{
+            schedule
+                [x] start w/ video on
+                [x] participants video on
+                [telephone+computer] audio type
+                [x] join before host
+                [ ] use personal id for schedule meeting
+                [ ] use personal id for instance meeting
+                [ ] require password for personal meetings
+                [ ] gen password for participants on phone
+                [x] mute on entry
+                [ ] reminder
+            in-meeting
+                [ ] encryption
+                [x] chat
+                [x] private 1:1 chat
+                [ ] autosave chat
+                [ ] play sound on join/leave
+                [ ] file xfer
+                [x] feedback to zoom
+                [x] feedback survey
+                [x] co-host
+                [x] host can place attendee on hold
+                ...
+            in-meeting adv
+                [x] breakout rooms
+                [x] CC
+                    [x] allow save cc
+                [x] virt bg
+                [ ] attention/focus tracking (grrr)
+            email notif
+            other
++               contains integration authentication key:Secret
+        }}}
+    }}}
++   video {{{
+        camera
+            select device
+        video
+            [ ] enable HD
+            [x] mirror video
++           [x] touch up
+        meetings
++           [x] always display name
+            [x] video off on join
+            [x] show preview dialog
+            [ ] hide non-video participants
+?           [ ] spotlight my video when speaking
++           [x] display 49 particpants in gallery view
+    }}}
++   audio {{{
+        speaker [device + volume]
+        mic     [device + volume]   [x] auto adjust
+        [ ] separate ringtone device
+        [x] audio by computer
+        [x] mute mic
++       [ ] press+hold space for temp unmute (when focused obviously)
+    }}}
+    virt bg {{{
+        actually changes background!
+        [ ] have green screen (more efficient but pixel level alphablend
+    }}}
+    recording
+        save in ~/Documents/Zoom
+    stats
+        3-10 fps
+    feedback
+    accessibility
+        close captioning
+            font 16 (default?)
+        meeting controls
+            [x] always show  (ctrl+\ to toggle)
+        keyboard shortcuts:
+          useful
+            cmd-\ = show shortcuts
+            opt-y = raise hand (yes)
+            cmd-t = screenshot (Take)
+
+          rest
+            cmd-shift-a = Audio toggle
+            cmd-shift-v = Video toggle
+            cmd-shift-n = Next cam
+            cmd-shift-r = Recording (local) toggle
+            cmd-shift-c = Cloud Recording toggle
+            cmd-shift-f = Fullscreen toggle
+            cmd-shift-m = Minimal toggle
+            cmd-shift-h = cHat toggle
+
+            ctrl+p      = Prev gallery
+            ctrl+n      = Next gallery
+            ctrl-T      = next Tab
+
+            cmd-l       = Landscape toggle
+            cmd-w       = close front Window (which one is that?)
+            cmd-t       = Take screenshoT
+            cmd-d       = scheDule meeting
+            cmd-j       = Join meeting
+                        = start meeting
+
+            ...
+
+        [ ] enable shortcuts even when not in focus (wow)
+tips:
+    use zoom plugin for gcal to get unique zoom url per meeting (so as not to collide tween meetings with shared id!)
+
+advanced:
+    https://zoom.us/profile/setting
+    settings
+        display end-of-meeting feedback = disabled
+        always show meeting control toolbar
+
+    flawless is olo built test suite
+
+}}}
+slack prefs {{{
+    home
+    account+profile
+    configure apps    https://team-olo.slack.com/apps/manage {{{
+        datadog
+            post notif as datadog - andrew strickland
+                weblook url - https://hooks.slack.com/services/{id}
+                    setup -
+                        datadog account / integrations/integrations / slack / configuration
+                        add slack channel(s) to post to
+                        [install]
+                        @slack-{channel} with 'share')
+                descriptive label (provide extra context in your list of integration - ie: why this one might be diff than others
+                customize name+icon + preview message
+
+            post notif as datadog - mike clark
+    }}}
+    analytics {{{
+    544 pub channels
+    most mesg/mo
+        #infrastructure-ops
+        #dev-dispatch
+        #dev-platform
+        #dev-conductor
+        #dev-client-ops-team
+        #payments
+        #dev-responsive
+        #dev-software-infra
+        #databases
+        #infrastructure
+    most members?
+        #general
+        #random
+    }}}
+    customize workspace {{{
+        emoji
+            :facepalm:      picard
+            :this:          I agree with this - up-finger or up-arrow
+            :nuke:          from orbit
+            :monkey:        ?
+            :bang:          headbanger in frustration
+        slackbot
+            says    =>  response
+    }}}
+}}}
+
+iterm2 keystroke for cmd-left/right to ^A ^E  .... default mapped to prev/next tab  => send escape sequence?
+iterm2 clear page, clear buffer, clear scrollback = ctrl+l, cmd-l, shift+cmd+k {{{
+
+goal:
+    cmd+c,cmd+v     key   cut,paste?
+    ctrl+c,ctrl+v   key   interupt,literal
+    ctrl+k,ctrl+l   clear screen+scroll
+    kl cmd          clear screen+scroll
+
+also:
+    what is meta key? dunno
+    does hammerspoon confuse iterm2 modifier keys? no but mapping still works?
+
+
+cmd kl? cant - codes ignored (by config?) {{{
+
+
+alias kl='clear'    # tput ansi ascii clear+cursor code:    echo -e "\033[2J\033[H"
+alias klkl='reset'  # tput reset code?                      echo -e "\033c"
+https://www.iterm2.com/3.0/documentation-escape-codes.html
+    osc=\e] or ^[]      st=\a or ^G
+    ^[]1337;StealFocus^G
+    ^[]1337;ClearScrollback^G                                           # not honored either - maybe disabled?
+https://en.wikipedia.org/wiki/ANSI_escape_code
+    escape sequences of note:
+        \ec reset
+    csi (controll sequence introducer) sequences of note:
+        \e[H    cursorhome move
+        \e[xJ   erase screen 0=end 1=start 2=entire? 3=entire+scroll    # 3 not being honored by iterm2
+
+    alias kl='echo -n -e "\033[2;3J\033[H"'
+
+so what code would I have to emit to clear screen+buffer?
+    cant?
+}}}
+
+hammerspoon ctrl+c,ctrl+v remapped to cmd+c,cmd+v = iterm sees as native cmd+c,cmd+v
+
+original:       cmd+c = copy mode, cmd+v = paste selection (not cutbuffer)
+hammerspoon:    cmd+c = cut,       cmd+v = paste
+
+add shortcuts for same with exta shift? shift+cmd+c sendhex(0x03), shift+cmd+v sendhex(0x16) {{{
+
+so what if I used addition shift modifier to get original behavior?
+    shift+cmd+c = edit / copy mode                          # I dont use this so ok to override
+    shift+cmd+v = edit / paste special / paste selection    # paste highlighted selection (which I auto-clip already)
+}}}
+ascii codes for ctrl+key sequences? {{{
+eric.law@elaw-mbpro$ perl -le 'print join"\n", map {sprintf"%s=\\0%02o",chr ord("a")+$_,1+$_} (0..25)'
+a=\001
+b=\002
+c=\003  etx?        0x03        # shift+cmd+c sendhex(0x03) works
+d=\004  eof/eot
+e=\005
+f=\006
+g=\007  bell
+h=\010
+i=\011
+j=\012
+k=\013
+l=\014
+m=\015  cr
+n=\016
+o=\017
+p=\020
+q=\021
+r=\022
+s=\023
+t=\024
+u=\025
+v=\026  syn?        0x16        # shift+cmd+v sendhex(0x16) works!
+w=\027
+x=\030
+y=\031
+z=\032
+
+iterm2 / prefs / profiles (default) / keys / [+]
+    ctrl+shift+v    = ctrl+shift+v  = sendhex 0x03
+    shift+cmd+v     = shift+cmd+v   = sendhex 0x16
+}}}
+
+use iterm2 prefs / profiles / keys (cause iterm2 prefs / keys is not the same thing!)
+    what sends ctrl-v? stty lnext = ^V  # literal-next
+    what sends ctrl-c? stty intr = ^C   # interrupt?  nak?
+
+I know that echo ^G rings bell and echo ^M is cr
+related to echo \X chars like \a (bell) \b (backspace) \f (formfeed) \n (newline) \r (carriage return) \t (tab) \033 (escape) ? not quite
+can I send ASCII/ANSI code for above? yes
+echo -n is BASH ONLY (does not work in sh compat mode)
+readline things {{{
+symbolic constants? {{{
+    RUBOUT  ^H?
+    DEL     \b?
+    ESC     ^[
+    LFD     ?
+    NEWLINE \n?
+    RET     \r?
+    RETURN  \r?
+    SPC     sp?
+    SPACE   sp?
+    TAB     ^I
+}}}
+
+ctrl=C, meta=M (what is meta key?) unknown!
+
+readline mapping to functions {{{
+ctrl+r  = reverse-search-history
+ctrl+s  = foreward-search-history
+ctrl+a  = begining-of-line
+ctrl+e  = end-of-line
+ctrl+f  = foreward-char (also right-arrow)
+ctrl+b  = backward-char (also left-arrow)
+ctrl+l  = clear-screen
+ctrl+n  = next-history (also down-arrow)
+ctrl+p  = previous-history (also up-arrow)
+ctrl+k  =
+ctrl+l  = clear-screen sent to bash, which clears screen.  known to bash, part of readline? yes
+
+meta+f  =
+meta+b  =
+
+cmd+k   = clear buffer (does this include scroll? appears to), home cursor, does not get current line though?
+    but what is meta?
+cmd+l   =
+}}}
+}}}
+how do stty, readline, bash, iterm2 relate? macos sysprefs hammerspoon appprefs stty readline/bash {{{
+https://zwischenzugs.com/2019/04/23/the-missing-readline-primer/
+iterm2 keycodes + sendhex
+bash readline(+autocomplete)
+bind -p # show readline shortcuts {{{
+eric.law@elaw-mbpro$ bind -p|egrep -v '#|self-insert'|egrep '"\\C-."'
+"\C-g": abort
+"\C-j": accept-line
+"\C-m": accept-line
+"\C-b": backward-char
+"\C-h": backward-delete-char
+"\C-?": backward-delete-char
+"\C-a": beginning-of-line
+"\C-]": character-search
+"\C-l": clear-screen
+"\C-i": complete
+"\C-d": delete-char
+"\C-e": end-of-line
+"\C-f": forward-char
+"\C-s": forward-search-history
+"\C-k": kill-line
+"\C-n": next-history
+"\C-o": operate-and-get-next
+"\C-p": previous-history
+"\C-q": quoted-insert
+"\C-v": quoted-insert
+"\C-r": reverse-search-history
+"\C-@": set-mark
+"\C-t": transpose-chars
+"\C-_": undo
+"\C-u": unix-line-discard
+"\C-w": unix-word-rubout
+"\C-y": yank
+
+}}}
+
+stty?
+
+so the layers are: {{{
+    os keyboard
+    os prefs shortcuts
+    app prefs shortcuts
+    cmd? tmux? ssh?
+    stty settings
+    readline
+    bash
+}}}
+
+
+eric.law@elaw-mbpro$ stty -a {{{
+...
+cchars:
+    discard = ^O    # ?
+    dsusp = ^Y      # ?
+
+    eof = ^D        # cmdline input end of file / logout
+    eol = <undef>   # cmdline input? end-of-line (\r\n vs \n? in cooked mode this is hidden?)
+    eol2 = <undef>  # cmdline input? alternate end-of-line (beyond \n?)
+
+    erase = ^?      # cmdline edit erase last char
+    werase = ^W     # cmdline edit erase last word
+    reprint = ^R    # cmdline edit repaint
+    lnext = ^V      # cmdline edit literal next char insert
+    kill = ^U       # cmdline edit erase entire line
+
+    stop = ^S       # output stop
+    start = ^Q      # output start again
+
+    intr = ^C       # cmdline signal execute interrupt foreground job (kill -TERM (15?))
+    susp = ^Z       # cmdline signal execute suspend foreground job (kill -STOP (17?))
+    quit = ^\       # cmdline signal execute kill foreground job (kill -KILL (9))
+
+    status = ^T     # statusline related? load,cmd,pid,event,usr,sys,busy,mem
+
+    min = 1         # min chars to satify read for special char sequences
+    time = 0        # tenths of second before timeout of min chars
+
+eric.law@elaw-mbpro$ stty size
+50 140
+eric.law@elaw-mbpro$ echo $LINES
+50
+eric.law@elaw-mbpro$ echo $COLUMNS
+140
+}}}
+note: LINES COLUMNS are not always EXPORTED
+}}}
+
+    }}}
+iterm2 - keystroke shortcut to get out of in-page search? enter? really?
+iterm2 image dump {{{
+# based on https://www.iterm2.com/utilities/imgcat
+# note tmux escaping function print_osc
+uses base64 binary (macos) == binary2base64; wonder what that looks like in perl
+deps on base64 binary what options are required:
+    -w0 (disable wrap if available)
+    -di ?
+    -D  decode input
+
+encoding is:
+    \e] l337 File = {{ssnvp}} : base64 \g
+        ssnvp   semi-colon(;) separated name=value pairs
+            name
+            size
+            width
+            height
+                {{number}}{{units:""=chars,px=pixels,%=percent,auto}}
+        preserveApectRatio
+        inline
+            0 (default) = download image
+            1           =display image
+            image formats supported: PDF PICT EPS PNG GIF, etc
+
+example
+    # Olo logo from gmail suite
+    https://www.google.com/a/cpanel/olo.com/images/logo.gif
+img64=`curl -Sskg https://www.google.com/a/cpanel/olo.com/images/logo.gif | base64`
+printf "\e]1337;File=inline=1:`$img64`\a"
+
+img64=`base64 ~/Pictures/glasses.png`
+printf "\e]1337;File=inline=1:$img64\a\n"
+
+protocol requires
+}}}
+iterm2 + vim colorschemes {{{
+https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+    traditional colors: blk red grn yel blu mag cyn wht
+builtins:                   fg          bg          fill
+    dark bg                 x           x           x       too dark!
+    light bg                x           x           x       too lite
+    pastel                  x           x           x       too dark
+    solarized dark          x           x           x       everything is blue tints
+    solarized light         x           x           x
+    tango dark              x           x           x       high contrast! ouch!
+    tango light             x           x           x
+--others-
++++ seafoam pastel          x           x           x       <<< been using this one!
+x   neopolitan              white       midbrn      bright
+-   parasio dark            x           x           x       too purple
+-   red alert               x           x           x       bright red bg
+-   treehouse               x           x           x       dim text
+
+https://iterm2colorschemes.com/
+requirements: bg=dark warm (grn|red), fg=offwhite, charbg=pastel, charfg=bright
+best bets:                  fg          bg          fill
++   pnevma                  white       drkgry      mid     best
+    space_gray              white       midgry      mid     purple tint bg but ok
+    soft_server             white       midgry      mild    text a bit dim
+
+-   ciapre                  midyel      drkblu      mid     dim text, kinda purple bg
+?   n0tch2k                 dimgry      midgrey     mild    notfound?
+-   birds_of_paradise       off         lowbrn      mid     dark red/purple bg?
+-   neutron                 white       drkblu      strong  bright text
+-   earthsong               midyel      brn         mighi   text too dim/brown
+
+}}}
+
+vim url rendering plugin would be nice {{{
+not just for opening; can do that with iterm2 via cmd-click!
+not for preview/unfurl; use w3m -dump, lynx -dump, pandoc       # see also: https://vi.stackexchange.com/questions/848/how-to-render-html-file
+opening
+    .netrw
+    'gx' cmd? invoke filehandler (`open` w/ url)
+
+:set modeline=0  -- is default
+
+vim session stores: edits?  jump-motions?
+    '' (double-single-quote) toggles tween here and last jump
+    `` (double-back-quote)
+
+something like vim markdown plugin mkdx ? https://github.com/SidOfc/mkdx
+}}}
+vim last position, mark jumping, jumping in general {{{
+
+jumps? marks term+PERM and last 0 stored in viminfo
+marks
+ma 'a       set and goto mark a - file mark within a file
+mA 'A       set and goto mark A - file mark between files - stored in viminfo <<<<<<
+
+
+jumps
+:set +jumplist
+:help ''
+'.          goto last change
+'( ')       sentence
+'{ '}       paragraph
+'"
+(( ))
+[[ ]]       isn't this something?
+C-O         prev jump
+C-I         next jump
+
+default viminfo $HOME/.viminfo
+viminfo-file-marks
+m0 '0       location of cursor when last existed vim
+}}}
+vim pandoc? http://vimcasts.org/episodes/using-external-filter-commands-to-reformat-html/
+vim higlighting notes {{{
+tput -Txterm longname           # xterm terminal emulator (X Window System)
+tput -Txterm-256color longname  # xterm with 256 colors
+
+
+http://vimdoc.sourceforge.net/htmldoc/syntax.html
+http://vimdoc.sourceforge.net/htmldoc/syntax.html#:highlight
+http://vimdoc.sourceforge.net/htmldoc/options.html#'highlight'
+    set highlight="csv of colon pairs for occasion:mode
+    occasions of interest - see highlight-default below for Occasions
+
+    Display Modes   Termcap     iterm2:xterm
+    [r]everse       mr me       reverse
+    [i]talic        ZH ZR       n/a
+    [b]old          md me       dim?
+    [s]tandout      so se       reverse
+    [u]nderline     us ue       underline
+    under[c]url ?   Cs Ce       n/a
+    [n]one          x
+    :{{group}}      x
+
+eric.law@elaw-mbpro$ perl -le '%C=qw(mr me ZH ZR md me so se us ue Cs Ce);foreach(sort keys%C){($a,$b)=($_,$C{$_});print"/bin/echo -n $a:;tput -Txterm-256color $a;echo word;tput -Txterm-256color $b"}'|sh 2>&-
+Cs:word             normal
+ZH:word             normal
+md:word             dim
+mr:word             [REVERSE]
+so:word             [REVERSE]
+us:word             _underline_
+
+https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_parameters
+
+eric.law@elaw-mbpro$ echo {38,48}:{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}|xargs -n1|sed 's/:/ /'|while read g c; do printf "$g;5;$c:  \e[$g;5;${c}m word \e[m\n";done
+... works as promised
+
+
+yet vi can show bold with tint?
+
+http://vimdoc.sourceforge.net/htmldoc/syntax.html#highlight-default
+    Occasion        Char        xterm2      
+    Folded          f           x
+    FoldColumn      F           x
+?   MatchParen                  x
+    DiffAdd         A           x
+    DiffChange      C           x
+    DiffDelete      D           x
+?   DiffText        T    
+    Search          l           reverse
+    StatusLine      s           reverse ===
+    StatusLineNC    S           reverse ___
+
+}}}
