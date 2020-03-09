@@ -1,0 +1,15 @@
+#!/usr/local/bin/jq -r --stream -f
+# Outputs JSON paths.
+# Based on https://news.ycombinator.com/item?id=20264654
+# Usage:
+# curl -s https://raw.githubusercontent.com/sitepoint-editors/json-examples/master/src/db.json | ./jsonpaths
+
+  select(length > 1)
+  | (
+    .[0] | map(
+      if type == "number"
+      then "[" + tostring + "]"
+      else "." + .
+      end
+    ) | add
+  ) + " = " + (.[1] | @json)
