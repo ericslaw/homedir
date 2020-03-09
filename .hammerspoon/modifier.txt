@@ -1,0 +1,247 @@
+https://developer.apple.com/design/human-interface-guidelines/macos/user-interaction/keyboard/ {{{
+    Primary Key    Keyboard Shortcut    Used by the System Action
+    order: ^\_#
+    common keys : sys=all {{{
+x   Space    #  Space sys-use  Show or hide the Spotlight search field (when multiple languages are installed, may rotate through enabled script systems).
+    Space   _#  Space sys-use  Varies. Apple Reserved.
+    Space   \#  Space sys-use  Show the Spotlight search results window (when multiple languages are installed, may rotate through keyboard layouts and input methods within a script).
+    Space   ^#  Space sys-use  Show the Special Characters window.
+
+x   Tab       # Tab sys-use  Move forward to the next most recently used app in a list of open apps.
+x   Tab      _# Tab sys-use  Move backward through a list of open apps (sorted by recent use).
+    Tab      _  Tab sys-use  Navigate through controls in a reverse direction.
+    Tab     ^   Tab sys-use  Move focus to the next group of controls in a dialog or the next table (when Tab moves to the next cell).
+    Tab     ^_  Tab sys-use  Move focus to the previous group of controls.
+
+    Esc     \#  Esc sys-use  Open the Force Quit dialog.
+
+    Eject   ^#  Eject sys-use  Quit all apps (after changes have been saved to open documents) and restart the computer.
+    Eject   ^\# Eject sys-use  Quit all apps (after changes have been saved to open documents) and shut the computer down.
+x   Eject   ^_  turn off displays   # was not documented here
+    }}}
+    arrows sys=all {{{
+^+lru[d] = space nav
+_+lrud = extend selection
+#+lr = move to begin/end of line
+\_+lrud = extend selection by word/paragraph
+
+?   Right   # Right sys-use  Change the keyboard layout to current layout of Roman script.
+!   Right   ^ Right sys-use  Move focus to another value or cell within a view, such as a table.    # nav to new space
+x   Right   _# Right sys-use  Extend selection to the next semantic unit, typically the end of the current line.
+x   Right   _ Right sys-use  Extend selection one character to the right.
+    Right   \_ Right sys-use  Extend selection to the end of the current word, then to the end of the next word.
+
+?   Left    # Left sys-use  Change the keyboard layout to current layout of system script.          # nav to new space
+x   Left    _# Left sys-use  Extend selection to the previous semantic unit, typically the beginning of the current line.
+x   Left    _ Left sys-use  Extend selection one character to the left.
+    Left    \_ Left sys-use  Extend selection to the beginning of the current word, then to the beginning of the previous word.
+!   Left    ^ Left sys-use  Move focus to another value or cell within a view, such as a table.
+
+!   Up      ^ Up sys-use  Move focus to another value or cell within a view, such as a table.       # is really expose!
+    Up      ^_ Up sys-use  Extend selection upward in the next semantic unit, typically the beginning of the document.
+x   Up      _ Up sys-use  Extend selection to the line above, to the nearest character boundary at the same horizontal location.
+    Up      \_ Up sys-use  Extend selection to the beginning of the current paragraph, then to the beginning of the next paragraph.
+
+    Down    _# Down sys-use  Extend selection downward in the next semantic unit, typically the end of the document.
+    Down    _ Down sys-use  Extend selection to the line below, to the nearest character boundary at the same horizontal location.
+    Down    \_ Down sys-use  Extend selection to the end of the current paragraph, then to the end of the next paragraph (include the paragraph terminator, such as Return, in cut, copy, and paste operations).
+    Down    ^ Down sys-use  Move focus to another value or cell within a view, such as a table
+
+    }}}
+    punct sys=many {{{
+    Grave   #Grave sys-use  Activate the next open window in the frontmost app.
+    Grave   _#Grave sys-use  Activate the previous open window in the frontmost app.
+    Grave   \#Grave sys-use  Move focus to the window drawer.
+    Hyphen  #Hyphen sys-use  Decrease the size of the selection.
+    Hyphen  \#Hyphen sys-use  Zoom out when screen zooming is on.
+    Left-bracket     #Left bracket        Left-align a selection.
+    Right-bracket     #Right bracket        Right-align a selection.
+    Pipe     #Pipe        Center-align a selection.
+    Colon     #Colon        Display the Spelling window.
+    Semicolon     #Semicolon        Find misspelled words in the document.
+    Comma    #Comma        Open the app's preferences window.
+    Comma   ^\#Comma sys-use  Decrease screen contrast.
+    Period     ^\#Period sys-use  Increase screen contrast.
+    Question  #Question mark        Open the app's Help menu.
+    slash     \#slash sys-use  Turn font smoothing on or off.
+    Equals   _#Equal sign sys-use  Increase the size of the selection.
+    Equals  \#Equal sign sys-use  Zoom in when screen zooming is on.
+    }}}
+    function keys  numbers : sys=all {{{
+    F1    ^F1 sys-use  Toggle full keyboard access on or off.
+    F2    ^F2 sys-use  Move focus to the menu bar.
+    F3    ^ F3 sys-use  Move focus to the Dock.
+    F4    ^F4 sys-use  Move focus to the active (or next) window.
+    F4      ^_F4 sys-use  Move focus to the previously active window.
+    F5    ^F5 sys-use  Move focus to the toolbar.
+    F5      #F5 sys-use  Turn VoiceOver on or off.
+    F6    ^F6 sys-use  Move focus to the first (or next) panel.
+    F6      ^_F6 sys-use  Move focus to the previous panel.
+    F7    ^F7 sys-use  Temporarily override the current keyboard access mode in windows and dialogs.
+    F8      F8 sys-use  Varies. Apple Reserved.
+    F9      F9 sys-use  Varies. Apple Reserved.
+    F10     F10 sys-use  Varies. Apple Reserved.
+    F11     F11 sys-use  Show desktop.
+    F12     F12 sys-use  Hide or display Dashboard.
+    3    _#3 sys-use  Capture the screen to a file.
+    3       ^_#3 sys-use  Capture the screen to the Clipboard.
+    4    _#4 sys-use  Capture a selection to a file.
+    4       ^_#4 sys-use  Capture a selection to the Clipboard.
+    8    \#8 sys-use  Turn screen zooming on or off.
+    8       ^\#8 sys-use  Invert the screen colors.
+    }}}
+    letters sys=[\#d]ock,[_#|\_#q]uit {{{
+    A    #A        Selects every item in a document or window, or all characters in a text field.
+    A       _#A        Deselects all selections or characters.
+    B    #B        Boldface the selected text or toggle boldfaced text on and off.
+    C    #C        Copy the selection to the Clipboard.
+    C       _#C        Display the Colors window.
+    C       \#C        Copy the style of the selected text.
+    C       ^#C        Copy the formatting settings of the selection and store on the Clipboard.
+    D    \#D sys-use  Show or hide the Dock.
+    D       ^#D        Display the definition of the selected word in the Dictionary app.
+    E    #E        Use the selection for a find operation.
+    F    #F        Open a Find window.
+    F       \#F        Jump to the search field control.
+    F       ^#F        Enter full screen.
+    G    #G        Find the next occurrence of the selection.
+    G       _#G        Find the previous occurrence of the selection.
+    H    #H        Hide the windows of the currently running app.
+    H       \#H        Hide the windows of all other running apps.
+    I    #I        Italicize the selected text or toggle italic text on or off.
+    I       #I        Display an Info window.
+    I       \#I        Display an inspector window.
+    J    #J        Scroll to a selection.
+    M    #M        Minimize the active window to the Dock.
+    M       \#M        Minimize all windows of the active app to the Dock.
+    N    #N        Open a new document.
+    O    #O        Display a dialog for choosing a document to open.
+    P    #P        Display the Print dialog.
+    P       _#P        Display the Page Setup dialog.
+    Q    #Q        Quit the app.
+    Q       _#Q sys-use  Log out the current user.
+    Q       \_#Q sys-use  Log out the current user without confirmation.
+    S    #S        Save a new document or save a version of a document.
+    S       _#S        Duplicate the active document or initiate a Save As.
+    T    #T        Display the Fonts window.
+    T       \#T        Show or hide a toolbar.
+    U    #U        Underline the selected text or turn underlining on or off.
+    V    #V        Paste the Clipboard contents at the insertion point.
+    V       _#V        Paste as (Paste as Quotation, for example).
+    V       \#V        Apply the style of one object to the selection.
+    V       \_#V        Paste the Clipboard contents at the insertion point and apply the style of the surrounding text to the inserted object.
+    V       ^#V        Apply formatting settings to the selection.
+    W    #W        Close the active window.
+    W       _#W        Close a file and its associated windows.
+    W       \#W        Close all windows in the app.
+    X    #X        Remove the selection and store on the Clipboard.
+    Z    #Z        Undo the previous operation.
+    Z       _#Z        Redo (when Undo and Redo are separate commands rather than toggled using #Z).
+    }}}
+}}}
+
+what modifiers + shortcuts can I use in tooling ^\# or \# ?{{{
+
+#+key = app action
+^+key = sys action
+
++   +   ^\# = mash  mash all the modifiers  = most common choices
++   +   ^ # = mish  mash missing option     = hold back on something/alt but related action
+?   ?    \# = mosh  opt+cmd modifier        = feels more like holding UP shift (vs down)
+#   x   ^\  = cosh  ctrl+opt modifier
+#   x    _# = mish  shIfted Modifier but should only be paired with # ?
+
+mouse/track move "pointer" - cursor in a terminal thing
+
+                arrow   compass word    invertT vim
+directions:     ^>v<    nesw    urdl    ilkj    ....
+                ^<v>    nwse    uldr    ijkl
+                ^v<>    uswe    udlr    kjhl
+^unik Vdskj <lwjh >rell
+
+additional system actions could use keys:
+
+?   ,.  <>  left/right small/large
++   []  []  left/right
++   -=  -+  small/large
++   /   ?   help?
++   lrud    direction
++   space   common!
++   arrow
++   /?kh    help keys AND show pointer/mouse?
++   z       undo window changes
++   m       mute mic
++   f       siz-full
+?   wn      wide/narrow pair?
+?   ijkl    move win?
+?   p       where is pointer? more proper than w?
+-   lrud    move win?   lr collides with load/restore?
+
+?   w       where is cursor? wide vs narrow?
+
++   r       restore - cant these be automatic?
++   s       save vs spotify - cant these be automatic?
+
+.   d       word-down   / eof?
+.   l       word-left   / refresh? layout?
+.   r       word-right  / redo/restore
+.   u       word-up     / undo
+
+-   k       keyboard shortcuts? nah - use /?
+x   m       cursor/pointer/mouse - would rather use for mic
+x   m       minify (who ever wants that?)
+x   h       hide?
+    n       siz-narrow
+    p       cursor/pointer/mouse - too close to print?
+    s       siz-shorter
+    s       spotify? not used so much anymore
+
+
+    t       siz-taller
+x   v       dir-vertical (too close to paste)
+x   c       where is pointer/cursor/mouse? cursor/pointer/mouse (too close to cut)
+
+---avoid------avoid------avoid------avoid------avoid------avoid------avoid------avoid---
+-   esc     ok but best for modals
+-   tab     common?
+x   `   ~   toggle?? too far left for multi-modifers
+x   eject   dangerous!
+x   \   |   vertical? closest horizontal is '-' which is MORE useful as -/+
+x   '   '   too close to enter/return?
+
+x  !q       means quit too easily
+   -h       dim-height
+   -h       dir-horizontal
+x  -i       vim-up (obtuse)
+x  -j       vim-left (obtuse)
+x  -k       vim-down (obtuse)
+x  -l       vim-right (obtuse)
+   ?w       cursor/pointer/mouse where is it?
+   ?w       dim-width  
+   ?w       siz-wider
+
+so additional system actions could use modifiers
+    ^\
+    ^\# = ^\#+eject = !reboot!
+     \#
+    ^ # = also used by extreme shortcuts like ^#+eject = quit all
+     \_ = used by arrows a bit
+}}}
+
+additional window properties: (per app?)
+    Constraints:
+    order       rgsmo processing order, first wins? default 'grson'?
+    ratio       aspect ratio range threshold
+    gravity     preferred alignment to screen edges
+    snap        grid snapping
+    magnet      win edge snapping
+    overlap     try to stay non-overlap or dont care?
+
+so given a direction (nesw,urdl) do something in that direction:
+    resize/grow
+    move
+
+cycling thru is nice idea
+do move until constrained then do something else?  push against something then grow?
+oscillate tween growth/shrink once max/min?
+

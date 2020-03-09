@@ -1,3 +1,20 @@
 [
+  {
+    "name" : "MouseIdle"
+    "type" : "Module",
+    "desc" : "Triggers function once mouse is idle for .2 seconds after moving. Used to active or merely focus app windows",
+    "doc"  : "Click, cmd-click, or active window below cursor once idle for 0.2sec",
 
+    "Constant" : [ ],
+    "submodules" : [ ],
+    "Function" : [ ],
+    "Variable" : [ ],
+    "stripped_doc" : [ ],
+    "Deprecated" : [ ],
+    "Constructor" : [ ],
+    "Method" : [ ],
+    "Command" : [ ],
+    "Field" : [ ],
+    "items" : [ ],
+  }
 ]
