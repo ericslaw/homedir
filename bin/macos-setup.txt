@@ -669,6 +669,8 @@ best bets:                  fg          bg          fill
 -   earthsong               midyel      brn         mighi   text too dim/brown
 
 }}}
+iterm2 color theme:  iterm2/prefs/profiles/colors/color presets/seafoam pastel  + cursor:fff80 bold:ffa0a0
+iterm2 cursor blink: iterm2/prefs/advanced/ search:cursor / terminal /cursor blink speed 0.5
 
 vim url rendering plugin would be nice {{{
 not just for opening; can do that with iterm2 via cmd-click!
