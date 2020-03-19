@@ -202,8 +202,9 @@ alias vi='vim -o'
 # -s    = squeeze blank lines
 # -S    = chomp long lines (vs wrap or fold)
 # note: [rR] required for git colors to show thru?  https://unix.stackexchange.com/a/64932/27057
+# http://eigenjoy.com/2008/07/23/mac-os-x-color-showing-escwhatever-for-git-diff-colors-and-more/
 # git config --global color.ui true
-export LESS="-XEFi"
+export LESS="-XEFiR"
 alias more=less
 
 
