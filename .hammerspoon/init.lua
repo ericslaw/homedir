@@ -47,7 +47,7 @@ end ):start()
 
 --- basic initialization
 hs.window.animationDuration = 0         -- disable animations
-hs.window.setFrameCorrectness = true   -- default=false -- set true if having issues
+hs.window.setFrameCorrectness = false  -- default=false -- set true if having issues
 hs.hotkey.alertDuration = 0.25;         -- default 1    -- how long a hotkey press alert is displayed
 
 --- general meta-key sequences for controlling various spoons
