@@ -81,6 +81,10 @@ special notes on arrow modifiers
     opt-arrow           not used
 
     }}}
+    defaults {{{
+defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+    }}}
 }}}
 
 gmail prefs / settings {{{
@@ -197,14 +201,7 @@ gcal prefs {{{
             main work location = cannot set
     +       keyboard shortcuts = disable
         }}}
-        add calendar(s) {{{
-            engineering calendar
-                https://calendar.google.com/calendar/embed?src=olo.com_i8rqsi080ibpdg1goe9i1lhrqc%40group.calendar.google.com&ctz=America%2FNew_York
-                contains tech talks, platform activity
-            engineering teams
-                https://calendar.google.com/calendar/embed?src=olo.com_c0aqejr6j7usv95ok34rcqj64g%40group.calendar.google.com&ctz=America%2FNew_York
-                contains per-team standups and lots of other stuff
-        }}}
+        add calendar(s)
         import export
         settings for my
             settings
@@ -339,43 +336,12 @@ advanced:
         display end-of-meeting feedback = disabled
         always show meeting control toolbar
 
-    flawless is olo built test suite
 
 }}}
 slack prefs {{{
     home
     account+profile
-    configure apps    https://team-olo.slack.com/apps/manage {{{
-        datadog
-            post notif as datadog - andrew strickland
-                weblook url - https://hooks.slack.com/services/{id}
-                    setup -
-                        datadog account / integrations/integrations / slack / configuration
-                        add slack channel(s) to post to
-                        [install]
-                        @slack-{channel} with 'share')
-                descriptive label (provide extra context in your list of integration - ie: why this one might be diff than others
-                customize name+icon + preview message
-
-            post notif as datadog - mike clark
-    }}}
-    analytics {{{
-    544 pub channels
-    most mesg/mo
-        #infrastructure-ops
-        #dev-dispatch
-        #dev-platform
-        #dev-conductor
-        #dev-client-ops-team
-        #payments
-        #dev-responsive
-        #dev-software-infra
-        #databases
-        #infrastructure
-    most members?
-        #general
-        #random
-    }}}
+    configure apps
     customize workspace {{{
         emoji
             :facepalm:      picard
@@ -627,15 +593,12 @@ encoding is:
             image formats supported: PDF PICT EPS PNG GIF, etc
 
 example
-    # Olo logo from gmail suite
-    https://www.google.com/a/cpanel/olo.com/images/logo.gif
-img64=`curl -Sskg https://www.google.com/a/cpanel/olo.com/images/logo.gif | base64`
-printf "\e]1337;File=inline=1:`$img64`\a"
+url=https://technical.ly/wp-content/uploads/2013/01/infonautics.jpg
+printf "\e]1337;File=inline=1:`curl -Sskg $url | base64`\a\n"
 
 img64=`base64 ~/Pictures/glasses.png`
 printf "\e]1337;File=inline=1:$img64\a\n"
 
-protocol requires
 }}}
 iterm2 + vim colorschemes {{{
 https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
