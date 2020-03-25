@@ -195,11 +195,15 @@ window resize/cycling
     https://github.com/S1ngS1ng/HammerSpoon/blob/master/window-management.lua
 
 articles/samples
+    https://aaronlasseigne.com/2016/02/16/switching-from-slate-to-hammerspoon/
+    https://www.micsumner.com/focus/how-to-organise-window-viewing-areas-in-mac-os/
+    https://msol.io/blog/tech/work-more-efficiently-on-your-mac-for-developers/
+    https://wincent.com/wiki/Hammerspoon
+
     https://medium.com/@_ahmed_ab/crazy-development-environment-on-imac-and-macbook-pro-95a03e74da17
     https://www.reddit.com/r/MacOS/comments/aa4a2i/thoughts_on_the_state_of_macos_automation/
     https://spinscale.de/posts/2019-05-28-creating-a-productive-terminal-environment.html
     https://zzamboni.org/post/my-hammerspoon-configuration-with-commentary/
-    https://spinscale.de/posts/2019-05-28-creating-a-productive-terminal-environment.html lsd bat fd
     https://libraries.io/github/scottcs/dot_hammerspoon
     https://github.com/snowe2010/.hammerspoon
 
