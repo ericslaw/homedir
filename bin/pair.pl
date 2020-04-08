@@ -187,4 +187,6 @@ tall/short
 grow/shrink
 expand/shrink
 expand/reduce
+ingest/query
 big/small
+hide/find
