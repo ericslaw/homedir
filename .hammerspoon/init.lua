@@ -1,5 +1,7 @@
 --- lua initialization for hammerspoon
 
+function trim(s) return string.match(s,'^%s*(.*%S)') or s end
+
 --- reload config on .lua file change in tree {{{
 hs.loadSpoon("ReloadConfiguration")
 -- Reload configuration on changes to .lua files only
@@ -385,27 +387,29 @@ auwatch()
 
 hs.window.filter.forceRefreshOnSpaceChange = true   -- force scan of windows on every space change (vs lazy discovery), can force scan w/ switchedToSpace(n)
 
-function win2wd(w,space) --- id space s x y w h app title
+-- win = hs.WINdow object, wcf = custom Window ConFig hash, str = string
+
+function win2wcf(w,space) --- id space s x y w h app title
     space = space or ""
     local id,scr,f,app,ttl = w:id(), w:screen(), w:frame(), w:application(), w:title()
     return { id=id, space=space, s=scr:getUUID(), x=f.x,y=f.y,w=f.w,h=f.h, app=app:name(), title=ttl }
 end
-function wd2win(d,w)
+function wcf2win(d,w)
     w:move( hs.geometry.rect( d.x, d.y, d.w, d.h ), s )
 end
-function wd2str(d)
+function wcf2str(d)
     return string.format("win:%10d:%5s:%s:%5d,%5d@%4dx%4d:%-16s:%s",d.id,d.space,d.s,d.x,d.y,d.w,d.h,d.app,d.title)
 end
 function win2str(w,sp)
-    return wd2str(win2wd(w,sp))
+    return wcf2str(win2wcf(w,sp))
 end
-function getwdlist(space)
+function getwcflist(space)
 --  hs.window.filter.default:rejectApp("Slack Helper (Renderer)")
     local winfilt = hs.window.filter.default
     local winlist = winfilt:getWindows()        -- default sortByFocusedLast
     local wininv = {}
     for i,w in ipairs( winfilt:getWindows() ) do
-        wininv[i] = win2wd(w,space)
+        wininv[i] = win2wcf(w,space)
     end
     return wininv
 end
@@ -413,17 +417,17 @@ function showwininv()
     local scrkey = getscrkey()
     local scrinv = hs.settings.get("scrinv") or {}
     local wininv = hs.settings.get("wininv") or {}
-    local wdlist = wininv[scrkey]
-    for _,d in ipairs( wdlist ) do
-        print( wd2str(d) )
+    local wcflist = wininv[scrkey]
+    for _,d in ipairs( wcflist ) do
+        print( wcf2str(d) )
     end
 end
 function savewininv()
     local scrkey = getscrkey()
     local scrinv = hs.settings.get("scrinv") or {}
     local wininv = hs.settings.get("wininv") or {}
-    scrinv[scrkey] = getscrcfglist()
-    wininv[scrkey] = getwdlist()
+    scrinv[scrkey] = getscrscflist()
+    wininv[scrkey] = getwcflist()
     hs.settings.set("scrinv",scrinv)
     hs.settings.set("wininv",wininv)
 end
@@ -431,12 +435,12 @@ function loadwininv()
     local scrkey = getscrkey()
     local scrinv = hs.settings.get("scrinv") or {}
     local wininv = hs.settings.get("wininv") or {}
-    local wdlist = wininv[scrkey]
+    local wcflist = wininv[scrkey] -- not used?
     local winlist = hs.window.filter.default:getWindows()
     for _,w in ipairs( winlist ) do
-        for _,d in ipairs( wdlist ) do
+        for _,d in ipairs( wcflist ) do
             if w:id() == d.id then
-                wd2win( d, w )
+                wcf2win( d, w )
             end
         end
     end
@@ -459,28 +463,33 @@ end
 --## str = string represent
 --##
 
-function scr2cfg(s) -- screen to config struct
-    local id,uuid,name,f,r,px,py = s:id(),s:getUUID(),s:name(),s:fullFrame(),s:rotate(),s:position()
-    return { id=id, uuid=uuid, name=name, x=f.x, y=f.y, w=f.w, h=f.h, r=r, px=px,  py=py }
+-- scr = hs.SCReen object, scf = custom Screen ConFig hash, str = string
+function scr2scf(s) -- screen to config struct
+    local id,uuid,name,f,r,bg,px,py = s:id(),s:getUUID(),s:name(),s:fullFrame(),s:rotate(),s:desktopImageURL(),s:position()
+    return { id=id, uuid=uuid, name=name, x=f.x, y=f.y, w=f.w, h=f.h, r=r, px=px,  py=py, bg=bg }
 end
-function cfg2str(c) -- config struct to string
-    return string.format("scr:%10s:%5s:%5d,%5d@%4dx%4d:%2d,%2d:%11s",c.id,c.uuid,c.x,c.y,c.w,c.h,c.px,c.py,c.name)
+function scf2str(c) -- config struct to string
+    return string.format("scr:%10s:%5s:%5d,%5d@%4dx%4d:%2d,%2d:%-11s,%s", c.id,c.uuid, c.x,c.y,c.w,c.h,c.px,c.py,c.name,c.bg)
 end
 function scr2str(s) -- screen struct to string
-    return cfg2str( scr2cfg(s) )
+    return scf2str( scr2scf(s) )
 end
-function cfg2scr(c,s) -- config struct to screen -- ie: make changes
+function scf2scr(c,s) -- config struct to screen -- ie: make changes
     if c.x == 0 and c.y == 0 and s:getUUID() ~= hs.screen.primaryScreen():getUUID() then    -- is NOT primary
-        print("set primary " .. cfg2str(c) .. " >> " .. scr2str(s) )
+        print("set primary " .. scf2str(c) .. " >> " .. scr2str(s) )
         s:setPrimary()
     end
     if s:rotate() ~= c.r then
-        print("set rotate  " .. cfg2str(c) .. " >> " .. scr2str(s) )
+        print("set rotate  " .. scf2str(c) .. " >> " .. scr2str(s) )
         s:rotate(c.r)
     end
     if s:fullFrame().x ~= c.x or s:fullFrame().y ~= c.y then
-        print("set origin  " .. cfg2str(c) .. " >> " .. scr2str(s) )
+        print("set origin  " .. scf2str(c) .. " >> " .. scr2str(s) )
         s:setOrigin(c.x,c.y)
+    end
+    if s:desktopImageURL() ~= c.bg then
+        print("set bg  " .. s:desktopImageURL() .. " >> " .. c.bg )
+        s:desktopImageURL(c.bg)
     end
 end
 function getscrkey()
@@ -490,41 +499,54 @@ function getscrkey()
     end
     return table.concat(uuidlist,":")
 end
-function getscrcfglist()
-    local scrcfglist = {}
+function getscrscflist()
+    local scrscflist = {}
     for i,s in ipairs(hs.screen.allScreens()) do
-        scrcfglist[i] = scr2cfg(s)
+        scrscflist[i] = scr2scf(s)
     end
-    return scrcfglist
+    return scrscflist
 end
 function showscrinv()
     local scrinv = hs.settings.get("scrinv") or {}
-    for key,cfglist in pairs(scrinv) do
+    for key,scflist in pairs(scrinv) do
         print("key: "..key)
-        for i,cfg in ipairs(cfglist) do
-            print("    cfg".. i .. ": " .. cfg2str(cfg) )
+        for i,scf in ipairs(scflist) do
+            print("    scf".. i .. ": " .. scf2str(scf) )
         end
     end
 end
 function savescrinv()
     local scrkey = getscrkey()
-    local scrcfglist = getscrcfglist()
+    local scrscflist = getscrscflist()
     local scrinv = hs.settings.get("scrinv") or {}
-    scrinv[scrkey] = scrcfglist
+    scrinv[scrkey] = scrscflist
     hs.settings.set("scrinv",scrinv)
 end
 function loadscrinv()
     local scrkey = getscrkey()
     local scrinv = hs.settings.get("scrinv") or {}
     if scrinv[scrkey] then
-        for i,cfg in ipairs(scrinv[scrkey] ) do
-            local scr = hs.screen.find(cfg.uuid)
-            print("load cfg".. i .. ": " .. cfg2str(cfg) )
-            cfg2scr( cfg, scr )
+        for i,scf in ipairs(scrinv[scrkey] ) do
+            local scr = hs.screen.find(scf.uuid)
+            print("load scf".. i .. ": " .. scf2str(scf) )
+            scf2scr( scf, scr )
         end
     end
 end
+function clearscrinv()
+    hs.settings.clear("scrinv")
+end
 -- }}}
+
+-- save inv after 10sec for certain win events
+screentimer_save = hs.timer.delayed.new(10, function() savewininv() end)
+hs.window.filter.default:subscribe(hs.window.filter.windowCreated  , function(w,a,e) print(e.." "..trim(a).." "..w:id()) screentimer_save:start(10) end )
+hs.window.filter.default:subscribe(hs.window.filter.windowDestroyed, function(w,a,e) print(e.." "..trim(a).." "..w:id()) screentimer_save:start(10) end )
+hs.window.filter.default:subscribe(hs.window.filter.windowMoved    , function(w,a,e) print(e.." "..trim(a).." "..w:id()) screentimer_save:start(10) end )
+-- load inv after 10sec for certain screen events
+screentimer_load = hs.timer.delayed.new(10, function() loadwininv() end)
+hs.screen.watcher.new(function() screenchange_load:start(10) print("screen watcher event; start load in 10sec") end):start()
+
 -- space inventory {{{
 -- https://github.com/asmagill/hs._asm.undocumented.spaces
 -- hs.spaces = require("hs._asm.undocumented.spaces")
@@ -646,6 +668,7 @@ end
 --      end
 --  end):start()
 -- }}}
+
 
 
 -- EXPERIMENTAL
