@@ -1,0 +1,3 @@
+[submodule ".vim/pack/default/start/vim-json"]
+	path = .vim/pack/default/start/vim-json
+	url = https://github.com/elzr/vim-json.git
