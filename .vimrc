@@ -18,6 +18,8 @@ set backspace=indent,eol "start
 " filetype detection exceptions
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 autocmd BufNewFile,BufReadPost *.md syntax on
+autocmd BufNewFile,BufReadPost *.json* set filetype=json foldmethod=syntax
+autocmd BufNewFile,BufReadPost *.json* syntax on
 autocmd BufNewFile,BufReadPost *.pl set filetype=perl
 autocmd BufNewFile,BufReadPost *.pm set filetype=perl
 
