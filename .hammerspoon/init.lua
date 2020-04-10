@@ -538,14 +538,62 @@ function clearscrinv()
 end
 -- }}}
 
--- save inv after 10sec for certain win events
-screentimer_save = hs.timer.delayed.new(10, function() savewininv() end)
-hs.window.filter.default:subscribe(hs.window.filter.windowCreated  , function(w,a,e) print(e.." "..trim(a).." "..w:id()) screentimer_save:start(10) end )
-hs.window.filter.default:subscribe(hs.window.filter.windowDestroyed, function(w,a,e) print(e.." "..trim(a).." "..w:id()) screentimer_save:start(10) end )
-hs.window.filter.default:subscribe(hs.window.filter.windowMoved    , function(w,a,e) print(e.." "..trim(a).." "..w:id()) screentimer_save:start(10) end )
--- load inv after 10sec for certain screen events
-screentimer_load = hs.timer.delayed.new(10, function() loadwininv() end)
-hs.screen.watcher.new(function() screenchange_load:start(10) print("screen watcher event; start load in 10sec") end):start()
+
+-- TODO: no screen change detected when laptop screen closes
+-- TODO: tidy this pattern
+-- multiple sporatic async events on scr change followed-by (?) win change events
+-- each need debounced with timer
+-- each triggers a save or load depending on state?
+-- complication: load event is an 'ask' until approved but notif dont stay open for more than 4sec
+-- idea: maybe set flags saying what happened to make logic more clear
+
+-- timer to run when window inventory should be loaded soon
+screenload_pending = false
+screenload_notif = hs.notify.new(function(notif)
+    -- activationTypes = 0=none 1=contentsClicked 2=actionButtonClicked 3=replied 4=additionalActionClicked
+    if notif:activationType() == hs.notify.activationTypes["actionButtonClicked"] then
+        print("loadwininv()")
+        loadwininv()
+    else
+        print("will NOT loadwininv()")
+    end
+    screenload_pending = false
+end,{
+    soundName = "Glass",
+    setIdImage = img_question,
+    title = "chime",
+    subTitle = "what time is it?",
+    informativeText = "what are you doing",
+    hasActionButton = true,
+    actionButtonTitle = "LoadWinInv",
+    autoWithdraw = false,
+    withDrawAfter = 120
+})
+screenload_timer = hs.timer.delayed.new(10, function()
+    screenload_notif:send()
+end)
+-- watch for screen add/sub/mov events and trigger the ask-load 
+hs.screen.watcher.new(function()
+    screenload_pending = true
+    screenload_timer:start(10)
+    print("screen watcher event; start load in 10sec")
+end):start()
+-- TODO: have save functoin ask load if screenchange event was seen
+
+-- save inv after 10sec for certain win events - UNLESS a recent screen event fired
+screensave_timer = hs.timer.delayed.new(10, function()
+    if screenload_pending then
+        screenload_notif:send()
+        print("savewininv INHIBITED")
+    else
+        print("savewininv()")
+        savewininv()
+    end
+end)
+-- watch for window add/sub/mov events, and savewininv in 10sec
+hs.window.filter.default:subscribe(hs.window.filter.windowCreated  , function(w,a,e) print(e.." "..trim(a).." "..w:id()) screensave_timer:start(10) end )
+hs.window.filter.default:subscribe(hs.window.filter.windowDestroyed, function(w,a,e) print(e.." "..trim(a).." "..w:id()) screensave_timer:start(10) end )
+hs.window.filter.default:subscribe(hs.window.filter.windowMoved    , function(w,a,e) print(e.." "..trim(a).." "..w:id()) screensave_timer:start(10) end )
 
 -- space inventory {{{
 -- https://github.com/asmagill/hs._asm.undocumented.spaces
