@@ -55,7 +55,7 @@ test -d "$dst"   ||   panic "dst home not found"
 # what to do? ln, cp, mv, rm? generally ln to src
 
 # link dirs and files here
-for obj in .git .hammerspoon .bashrc .profile .vimrc .jq; do
+for obj in .git .hammerspoon .bashrc .profile .vimrc .jq .vim; do
     linkcreate $src/$obj $dst/$obj $dst/$obj.save
 done
 
