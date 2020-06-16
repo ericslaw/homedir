@@ -190,3 +190,5 @@ expand/reduce
 ingest/query
 big/small
 hide/find
+keep/drop
+plural/single
