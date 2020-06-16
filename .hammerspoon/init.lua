@@ -186,18 +186,18 @@ img_question = hs.image.imageFromASCII( [[
 .....a....
 ]] )
 
-chime_timer = hs.timer.delayed.new(5,function() end);
-function chime()
-    hs.notify.new({
-        setIdImage = img_clock,
-        title = "chime",
-        subTitle = "what time is it?",
-        informativeText = "what are you doing",
-        withDrawAfter = 10
-    }):send()
-    chime_timer:setDelay(ival)
-    chime_timer:start()
-end
+-- #chime_timer = hs.timer.delayed.new(5,function() end);
+-- #function chime()
+-- #    hs.notify.new({
+-- #        setIdImage = img_clock,
+-- #        title = "chime",
+-- #        subTitle = "what time is it?",
+-- #        informativeText = "what are you doing",
+-- #        withDrawAfter = 10
+-- #    }):send()
+-- #    chime_timer:setDelay(ival)
+-- #    chime_timer:start()
+-- #end
 
 spot_timer = hs.timer.delayed.new(5,function() showspot() end);
 function showspot()
@@ -561,9 +561,9 @@ screenload_notif = hs.notify.new(function(notif)
 end,{
     soundName = "Glass",
     setIdImage = img_question,
-    title = "chime",
-    subTitle = "what time is it?",
-    informativeText = "what are you doing",
+    title = "loadinv",
+    subTitle = "should I load inventory?",
+    informativeText = "do you think so?",
     hasActionButton = true,
     actionButtonTitle = "LoadWinInv",
     autoWithdraw = false,
@@ -581,19 +581,23 @@ end):start()
 -- TODO: have save functoin ask load if screenchange event was seen
 
 -- save inv after 10sec for certain win events - UNLESS a recent screen event fired
+screensave_count = 0
 screensave_timer = hs.timer.delayed.new(10, function()
-    if screenload_pending then
+    if screenload_pending or screensave_count > 900000000 then
         screenload_notif:send()
-        print("savewininv INHIBITED")
+        print("savewininv INHIBITED "..screensave_count )
+        screensave_count = 0
     else
         print("savewininv()")
-        savewininv()
+        screensave_count = 0
+        -- savewininv()
     end
 end)
 -- watch for window add/sub/mov events, and savewininv in 10sec
-hs.window.filter.default:subscribe(hs.window.filter.windowCreated  , function(w,a,e) print(e.." "..trim(a).." "..w:id()) screensave_timer:start(10) end )
-hs.window.filter.default:subscribe(hs.window.filter.windowDestroyed, function(w,a,e) print(e.." "..trim(a).." "..w:id()) screensave_timer:start(10) end )
-hs.window.filter.default:subscribe(hs.window.filter.windowMoved    , function(w,a,e) print(e.." "..trim(a).." "..w:id()) screensave_timer:start(10) end )
+-- TODO: if screensave_timer count increases too far then trigger a load instead
+hs.window.filter.default:subscribe(hs.window.filter.windowCreated  , function(w,a,e) screensave_count=screensave_count+1; print(e..screensave_count.." "..trim(a).." "..w:id()) screensave_timer:start(10) end )
+hs.window.filter.default:subscribe(hs.window.filter.windowDestroyed, function(w,a,e) screensave_count=screensave_count+1; print(e..screensave_count.." "..trim(a).." "..w:id()) screensave_timer:start(10) end )
+hs.window.filter.default:subscribe(hs.window.filter.windowMoved    , function(w,a,e) screensave_count=screensave_count+1; print(e..screensave_count.." "..trim(a).." "..w:id()) screensave_timer:start(10) end )
 
 -- space inventory {{{
 -- https://github.com/asmagill/hs._asm.undocumented.spaces
