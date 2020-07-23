@@ -23,6 +23,7 @@ PATH=${PATH}:/usr/ccs/bin:/usr/local/go/bin
 PATH=/usr/local/bin:${PATH}
 PATH=${PATH}:/etc:/usr/etc:/usr/local/etc
 PATH=/x/data/bin:$PATH
+PATH=${PATH}:/usr/local/share/dotnet/
 PATH=.:${HOME}/bin/`uname`:${HOME}/bin:${PATH}:${HOME}/git/runner/bin
 # set LC_ALL=C to avoid unclear 'natural' sorting issues - sort cmd should be more for computers more than humans (see natsort elsewhere)
 export LC_ALL=C
