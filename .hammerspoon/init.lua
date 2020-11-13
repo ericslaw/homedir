@@ -268,6 +268,12 @@ hs.hotkey.bind( {"ctrl","alt","cmd"}, "s", nil, function() showspot() end )
 -- my_mute_toggle requires system down and up event posted to work
 function my_mute_toggle() hs.eventtap.event.newSystemKeyEvent("MUTE",true):post();hs.eventtap.event.newSystemKeyEvent("MUTE",false):post() end
 function my_mute_delay(nsec) my_mute_toggle(); hs.timer.doAfter(nsec, function() my_mute_toggle() end) end
+function my_output_toggle()
+    local was = hs.audiodevice.defaultOutputDevice()
+    local now = hs.audiodevice.findOutputByName("MacBook Pro Speakers")
+    now:setDefaultOutputDevice()
+    hs.timer.doAfter( 0.5, function() was:setDefaultOutputDevice() end)
+end
 
 --- was using 'eject' on BT keyboard to mute audio for 25sec
 -- see: https://github.com/Hammerspoon/hammerspoon/issues/1220 https://github.com/Hammerspoon/hammerspoon/issues/2115
@@ -279,12 +285,13 @@ ejecttap = hs.eventtap.new({ hs.eventtap.event.types.NSSystemDefined }, function
     -- Check empty table
     if next(event) then
         if event.key == 'EJECT' and event.down then
-            print('mute 25sec')
-            my_mute_delay(25)
+            print('toggle audio')
+            my_output_toggle()
+            -- my_mute_delay(25)
         end
     end
 end)
--- ejecttap:start()
+ejecttap:start()
 -- }}}
 --- MouseIdle - focus-follows-mouse - disabled -------------------------------- {{{
 -- playing with focus follows mouse only once it goes idle
@@ -720,6 +727,16 @@ hs.window.filter.default:subscribe(hs.window.filter.windowMoved    , function(w,
 --      end
 --  end):start()
 -- }}}
+
+-- function to move quicktime player window to specific geom
+function move_quicktime()
+    local winlist = hs.window.filter.new("QuickTime Player"):getWindows()
+    for idx,win in ipairs(winlist) do
+        print(hs.inspect(win))
+        win:move(hs.geometry(-1628,917,1200,675),true)
+    end
+end
+hs.hotkey.bind( mash, "p", "move player", move_quicktime )
 
 
 
