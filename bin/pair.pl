@@ -32,6 +32,7 @@ print join"\n",@list;
 # show me the other words that have other combos  (how many levels deep?)
 # rank by preference shorter
 # consider white/black list
+# safe/block? :(
 # consider some rank modification as a note/comment
 # rank by uniqueness of word usage/frequency
 
@@ -118,7 +119,7 @@ kill/reap
 last/next
 load/save
 lock/unlock
-master/slave
+master/slave # avoid
 min/max
 move/remove
 move/size
@@ -191,4 +192,10 @@ ingest/query
 big/small
 hide/find
 keep/drop
+keep/toss
 plural/single
+former/latter
+novice/expert
+live/dead
+public/private
+temp/perm
