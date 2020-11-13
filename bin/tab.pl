@@ -31,6 +31,11 @@ my $spacer;
 my $maxcol;
 my $zero = "0"; # how to handle zero cell values - if set, replace cells with zero with this value
 
+sub trim {
+    my($str)= @_;
+    $str =~ s/^\s+|\s+$//g;
+    return $str;
+}
 GetOptions(
     "g|grep|in|include=s" => \$incl,
     "gv|grepv|vgrep|ex|exclude=s" => \$excl,
@@ -39,7 +44,7 @@ GetOptions(
     "d|od|delim=s" => \$delim,
     "x|bar:s" => \$bar,
     "s|sort=i" => \$sort,
-    "n|norm|normalize:1" => \$norm,
+    "n|norm|normalize:1" => \$norm,             # what is normalize again?
     "w|width|mw|minwidth:1" => \$minwidth,
     "pad|space:1" => \$spacer,
     "z|zero=s" => \$zero,
@@ -56,9 +61,11 @@ while(<>){
     next if $excl && $_ =~ $excl;
     my @F = split $sep, $_, $maxcol;
     foreach ( 0 .. $#F ){
+        $F[$_] = trim $F[$_];
         $F[$_] = sprintf "%.3f", $F[$_] if $F[$_] =~ /^\s*-?\d*\.\d+\s*$/; # reformat float precision to ensure width calculations are accurate
         $len[$_] = length $norm if $norm > length $F[$_];
         $len[$_] = length $F[$_] if !defined $len[$_] || length $F[$_] > $len[$_];
+        # why do I care about max value (vs max length?)
         $max[$_] = $F[$_] if !defined $max[$_] || $F[$_] > $max[$_];
         $min[$_] = $F[$_] if !defined $min[$_] || $F[$_] < $min[$_];
     }
@@ -89,6 +96,7 @@ while(<>){
         # optionally append barchart
         my $baridx = (defined $bar && $bar =~ /l|last|nf|NF|^$/) ? $#F : $bar;  # allow NF or lastfield or blank to be last column
 #       push @F, substr("x"x999,0,$F[$baridx]);
+        $F[$#F] =~ s/\s+$//; # trim last field of whitespace
         \@F;
     }
     @data;
