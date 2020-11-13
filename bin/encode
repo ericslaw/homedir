@@ -1,0 +1,9 @@
+#!/usr/bin/perl -l
+# script to encode URLs via stdin or from args
+use strict;
+use URI::Escape;
+my @input = @ARGV ? @ARGV : <>;
+foreach my $line ( @input ){
+    $line = uri_escape $line;
+    print $line;
+}

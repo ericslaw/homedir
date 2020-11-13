@@ -1,0 +1,4 @@
+#!/usr/bin/perl -l
+my $len = 0 + shift @ARGV;
+$len |= 8;
+print join"",map{substr("0123456789abcdef",int rand(16),1)}(0..$len);
