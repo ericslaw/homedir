@@ -1,0 +1,13 @@
+#!/usr/bin/perl -l
+use strict;
+use Text::ParseWords;
+
+my $line;
+while (<>){
+    $line .= $_;                        # accumulate input
+    next if $line =~ tr{"}{} % 2 == 1;  # next if line incomplete
+    chomp $line;
+    $line =~ s{\n}{\\\\n}g;             # make multi-lines single-line (not sure why needs quad-\
+    print join",", map {s{,}{;}g;$_} quotewords qr{,},0,$line;
+    $line="";
+}
