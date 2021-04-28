@@ -8,7 +8,7 @@ sub naturalize {
                 ! m/\d/                     # if no digits in string
                     ? $_                    #    then just keep it
                     : sprintf "%.*d",       #    else print digits with precision
-                        $_[1] ? $_[1] : 8,  #        precison is as specified or 8
+                        $_[1] ? $_[1] : 16, #        precison is as specified or default 16
                         $_                  #        digits as seen
             }
             split /(\d+)/,                  # split by breaks in digits
