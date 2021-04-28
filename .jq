@@ -15,4 +15,4 @@ def harslack:   har|select(.url|test("convers"));
 def trim(s):    s|gsub("\\s+";" ")|gsub("^\\s+|\\s+$";"");
 def crc(s):     (s|explode|reduce .[] as $c ( 0 ; (.+$c)|floor ));
 # re-order object keys by a specific list
-def order(ord)  . as $obj|ord|split(" ")|reduce .[] as $k ( {}; .+([{key:$k,value:$t[$k]}]|from_entries) );
+def order(ord):  . as $obj| ord|split(",")|reduce .[] as $key ( {}; .+([{key:$key,value:$obj[$key]}]|from_entries) );
