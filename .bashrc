@@ -218,11 +218,15 @@ complete -A hostname -o default rdiff
 
 # perl calculator
 # TODO: command completion that processes math expressions before execution!
+# this could occur if ' ' or if I use tab completion on 'pc' command and it auto-wraps in quotes?
 function pc() { perl -le '$expr=join(" ",@ARGV);foreach(0..3){$expr=~s/(\d)\s+(\d)/$1+$2/g};printf"%s\n", 0+eval $expr' "$@"; }
 function pc2() { perl -le '$expr=join(" ",@ARGV);foreach(0..3){$expr=~s/(\d)\s+(\d)/$1+$2/g};print eval $expr' "$@"; }
 function atb() { perl -le '$expr=join(" ",@ARGV);$expr=~s/(\d)\s+(\d)/$1+$2/g;printf"%.5f%%\n", 100*(1-(eval $expr)/(30*86400))' "$@"; }
 # perl bits display
 function bits() { perl -le 'print join" ",split/(.{8,8})/,unpack"B32",pack"N*",eval {join" ",@ARGV}' $@ ;}
+
+# wonder if readline could create matching quotes, parens, and braces using readline?
+bind '"=":self-insert'          # undo# or if tab completion could recognize jq and auto-close parens+quote?
 
 # set window title for ansi compliant terminals: note: echo -e "\e\a" dont work on OSX, -e ignored!
 test -z "$TTL" || export TTL="title"
@@ -383,14 +387,18 @@ export ANSIBLE_HOST_KEY_CHECKING=False
 ### tt end     = end day
 ### tt list    = list projects
 ### tt hours   = list project hours over last week (or 'this' week?)
-### tt PROJ notes = implied start on PROJ until next proj record is logged, new PROJ gets added to list
+### tt TASK notes = implied start on TASK until next proj record is logged, new TASK gets added to list
 ###
 export TT=$HOME/.tt
 function _comp_tt {
     local   word="${COMP_WORDS[COMP_CWORD]}"    # word trying to complete
     if [[ $COMP_CWORD -eq 1 ]]; then
-        IFS=$'\n' read -d ' ' TASKLIST < $TT.list # so use this instead: http://stackoverflow.com/a/11394045/2135
-        COMPREPLY=( $(compgen -W "$( echo ${TASKLIST[@]} )" -- "$word") )
+        if [ ! -f $TT.list ]; then
+            COMPREPLY=( $(compgen -W "WARNING $TT.list does not exist" ) )
+        else
+            IFS=$'\n' read -d ' ' TASKLIST < $TT.list # so use this instead: http://stackoverflow.com/a/11394045/2135
+            COMPREPLY=( $(compgen -W "$( echo ${TASKLIST[@]} )" -- "$word") )
+        fi
     elif [[ $COMP_CWORD -eq 2 ]]; then
         COMPREPLY=( $(compgen -W "start end list" -- "$word") )
     else
@@ -402,11 +410,13 @@ function tt () {
     # printf %(fmt)T is bash-4.2+ only, missing args presumes 'now' bash-4.3+
     STAMP=$(date '+%s %Y-%m-%d %H:%M:%S')
     TASK=$1
+    shift
     if [[ -z "$TASK" ]]; then
         echo "usage: tt PROJECT comments"
     elif [[ "$TASK" = "list" ]]; then
-        cat $TT.list
+        cat $TT.list | sort -i | cat -n
     else
+        grep -q $TASK $TT.list || echo "$TASK" >> $TT.list
         echo $STAMP $@ | tee -a $TT.log
     fi
 }
