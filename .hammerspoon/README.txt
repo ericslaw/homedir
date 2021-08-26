@@ -189,6 +189,9 @@ winmgr action keystroke and edit history
     why runs validate? in case move failed?
 }}}
 
+other related tools:
+    https://github.com/jakehilborn/displayplacer
+
 hs-config == window resize on screen-edge, window snapping to grid
     https://github.com/mtrpcic/hs-config#window-snapping
 window resize/cycling
@@ -351,6 +354,41 @@ table.sort
 2020-01-24 14:14:46:    -,   -,in,  -,nojack,    -,    -,100%,  no,   -,Built-in    ,MacBook Pro Microphone,BuiltInMicrophoneDevice
 2020-01-24 14:14:46:    -,   -,in,  -,nojack,    -,    -, 73%,  no,   -,USB         ,Dell USB Audio  ,AppleUSBAudioEngine:DisplayLink:Dell Universal Dock D6000:1708154742:4
 
+
+
+use-cases:
+call function to 'fix' audio
+sort list of known audio devices by preference use?
+# preferred
+2020-08-06 13:30:05: defi,   -,in,  -,nojack,    -,    -, 98%,  no,   -,Bluetooth   ,Jabra Elite 65t ,70-bf-92-1d-5e-94:input
+2020-08-06 13:30:05:    -,defo, -,out,nojack,    -,    -,  ni, 59%,   -,Bluetooth   ,Jabra Elite 65t ,70-bf-92-1d-5e-94:output
+
+2020-08-06 13:30:05:    -,   -, -,out,nojack,    -,    -,  ni, 49%,   -,USB         ,Dell USB Audio  ,AppleUSBAudioEngine:DisplayLink:Dell Universal Dock D6000:1708154742:3
+2020-08-06 13:30:05:    -,   -,in,  -,nojack,    -,    -, 73%,  no,   -,USB         ,Dell USB Audio  ,AppleUSBAudioEngine:DisplayLink:Dell Universal Dock D6000:1708154742:4
+2020-08-06 13:30:05:    -,   -,in,out,nojack,    -,    -,100%,100%,   -,USB         ,Arctis 7 Chat   ,AppleUSBAudioEngine:SteelSeries :SteelSeries Arctis 7:14222320:1,2
+2020-08-06 13:30:05:    -,   -, -,out,nojack,    -,    -,  ni,100%,   -,USB         ,Arctis 7 Game   ,AppleUSBAudioEngine:SteelSeries :SteelSeries Arctis 7:14222320:4
+2020-08-06 13:30:05:    -,   -,in,  -,nojack,    -,    -, 88%,  no,   -,USB         ,HD Webcam C615  ,AppleUSBAudioEngine:Unknown Manufacturer:HD Webcam C615:40DBC460:1
+2020-08-06 13:30:05:    -,   -,in,  -,nojack,    -,    -, 77%,  no,   -,USB         ,HD Webcam C615  ,AppleUSBAudioEngine:Unknown Manufacturer:HD Webcam C615:57647350:1
+2020-08-06 13:30:05:    -,   -,in,  -,nojack,    -,    -, 87%,  no,   -,Built-in    ,MacBook Pro Microphone,BuiltInMicrophoneDevice
+2020-08-06 13:30:05:    -,   -, -,out,nojack,    -,    -,  ni, 26%,   -,Built-in    ,MacBook Pro Speakers,BuiltInSpeakerDevice
+2020-08-06 13:30:05:    -,   -,in,out,nojack,    -,    -,100%,100%,   -,Virtual     ,ZoomAudioDevice ,zoom.us.zoomaudiodevice.001
+# never
+2020-08-06 13:30:05:    -,   -, -,out,nojack,    -,    -,  ni,  no,   -,DisplayPort ,DisplayPort     ,AppleGFXHDAEngineOutputDP:0:{AC10-A0AA-3133524C}
+
+
+BTW: C615:40DBC460:1 is the fishcam
+
+# could Audio MIDI Setup be an answer?
+concepts:
+    datasource
+    device
+    default
+    jack
+    muted
+ZZZZ
+    
+
+
     }}}
     csv wifi prefs? https://spinscale.de/posts/2016-11-08-creating-a-productive-osx-environment-hammerspoon.html
 
@@ -430,7 +468,7 @@ hs.screen:localToAbsolute(fullFrame)
 
 :::screen:::
     for i,scr in ipairs(hs.screen.allScreens()) do
-        local name,id,uuid,frame = scr:name(), scr:id(), scr:getUUID(), scr:fullFrame()
+        local name,id,uuid,frame,url = scr:name(), scr:id(), scr:getUUID(), scr:fullFrame(), scr:desktopImageURL()
         print(string.format("screen:%10s:%5s:%5d,%5d@%4dx%4d:%11s",id,uuid,frame.x,frame.y,frame.w,frame.h,name))
     end
     screen can be main(focus) or primary (menubar+dock)
@@ -803,3 +841,64 @@ otherButton
 
     }}}
 
+need functions to handle audio devices
+    aupri = {""}
+    aupref={
+PORT,NAME
+Bluetooth   Jabra Elite 65t
+USB         HD Webcam C615
+USB         Dell USB Audio
+USB         Arctis 7 Chat
+Built-in    MacBook Pro
+
+
+{dev=nil, name
+{dev=nil, port
+{dev=nil, isin
+{dev=nil, isout
+    }
+
+aupref = [[
+Dell USB Audio
+Arctis 7 Chat
+HD Webcam C615
+MacBook Pro Microphone
+MacBook Pro Speakers
+ZoomAudioDevice
+Arctis 7 Game
+DisplayPort
+]]
+
+auprefdevin = {}
+aupref:gsub("[^%c]+", function(n) local dev=hs.audiodevice.findInputByName(n);print(dev);if dev~=nil then table.insert( auprefdevin, table.getn(auprefdevin), dev ) end;end)
+
+http://ssrubin.com/posts.html
+
+
+
+
+    
+    
+
+    audev_match
+    scan devices into a list
+        uid
+        name
+        port
+        in|out
+        jack
+        mutein
+        muteout
+        isin,isout,isjack,mutein,muteout
+    given a preference list
+        
+    find device in list
+        identify which device is in use for input/output
+    pick 'next' fav audiodevices
+    on audio device change
+        if in|out on HDMI then
+
+
+https://github.com/dctucker/Spoons/blob/master/Source/Caffeine.spoon/init.lua
+
+menuBarItem

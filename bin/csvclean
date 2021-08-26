@@ -1,13 +1,57 @@
 #!/usr/bin/perl -l
 use strict;
 use Text::ParseWords;
+use Data::Dumper;$Data::Dumper::Sortkeys=$Data::Dumper::Indent=$Data::Dumper::Terse=1;
+use List::Util qw(first all);
+use Scalar::Util qw(looks_like_number);
+
+# get options {{{
+$::VERSION = 0.2;
+our $opt = {    # with default options
+};
+use Getopt::Long qw( GetOptionsFromArray :config default gnu_compat pass_through bundling);
+GetOptions( $opt, 'debug|d!', 'verbose|v:+', 'neuter|n',
+    'header|h:s',   # exists = header on line 1, if pattern, then those lines are headers
+    'fields|f=s@' => sub { push @{$opt->{$_[0]}}, split/,/, @_[1..$#_] },
+) || die;
+#}}}
+print Dumper $opt if $opt->{debug};
 
 my $line;
+my @columns;
 while (<>){
-    $line .= $_;                        # accumulate input
-    next if $line =~ tr{"}{} % 2 == 1;  # next if line incomplete
+    $line .= $_;                                            # accumulate input
+    next if $line =~ tr{"}{} % 2 == 1;                      # next if line incomplete due to embedded \n inside quotes
     chomp $line;
-    $line =~ s{\n}{\\\\n}g;             # make multi-lines single-line (not sure why needs quad-\
-    print join",", map {s{,}{;}g;$_} quotewords qr{,},0,$line;
-    $line="";
+
+    $line =~ s{\n}{\\\\n}g;                                 # make multi-lines single-line (not sure why needs quad-\
+    my @F = map {s{,}{;}g;$_} quotewords qr{,},0,$line;     # unpack fields with quoting
+
+    if ( $opt->{header} && ref $opt->{fields} eq 'ARRAY' ){
+#       if ( looks_like_number "$opt->{header}" ){
+#           if ( $.-1 == $opt->{header} ){
+#               print "found header by line: $.";
+#               @columns = @{$opt->{fields}};
+#           }
+#       }
+#       els
+        if ( $_ =~ qr/$opt->{header}/ ){ # fields is wordlist csv 
+            print "found header by pattern: $opt->{header}" if $opt->{verbose};
+            if ( all {looks_like_number $_ } @{$opt->{fields}} ){
+                @columns = map {$_-1} @{$opt->{fields}};
+            }
+            else {
+                @columns = map {
+                        my $pattern = $opt->{fields}->[$_];
+                        my $index = first { $F[$_] =~ $pattern } ( 0 .. $#F );
+                        print "pattern $pattern maps to $index" if $opt->{verbose};
+                        $index;
+                    } 0 .. $#{$opt->{fields}};
+            }
+            print "columns: " . join",",@columns if $opt->{verbose};
+        }
+    }
+    @F = map { defined $_ ? @F[$_] : "" } @columns  if  @columns;
+    print join",", @F;
+    $line="";                                               # clear line accumulation if we just flushed one
 }

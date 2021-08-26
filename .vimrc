@@ -83,6 +83,9 @@ function MyFoldText()
   let line = getline(v:foldstart)
   let sub = substitute(line, '/\*\|\*/\|{[{]{\d\=', '', 'g') . "...                                                                                                                                                                                    "
   # return v:folddashes . sub
+  if sub =~? "^[xir-]"
+    let sub = "    ------------------------    " . sub
+  endif
   return sub
 endfunction
 

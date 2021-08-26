@@ -84,8 +84,25 @@ special notes on arrow modifiers
     defaults {{{
 sysprefs/keyboard/keyboard; repeat, delay = -1 +2
     
-defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
-defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+defaults write -g InitialKeyRepeat -int 25 # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 3 # normal minimum is 2 (30 ms)
+#defaults write .GlobalPreferences AppleTextBreakLocale en_US_POSIX
+defaults write -g AppleTextBreakLocale en_US_POSIX
+# https://superuser.com/a/872786                    #   2015/02
+# https://apple.stackexchange.com/a/124788/1120     #   2014/03 2013/10
+# https://twitter.com/jaydisc/status/393157866812502016 # 2011/08, 2013/10
+# https://redsweater.com/blog/2137/word-breaks-for-nerds # 2011/08
+# why this should work per docs: https://developer.apple.com/documentation/corefoundation/1588024-tokenization_modifiers/kcfstringtokenizerunitwordboundary?language=objc
+
+# defaults collections
+# https://gist.github.com/DrLulz/0f1a1fd32afe3ba3e3a88ba4d0a182bf
+# https://blog.kdheepak.com/mac-osx-tweaks.html
+
+#
+defaults write com.apple.screencapture location -string "~/Pictures/Screenshots"
+
+
+# keybindings: https://apple.stackexchange.com/questions/16135/remap-home-and-end-to-beginning-and-end-of-line/16137#16137
     }}}
 }}}
 

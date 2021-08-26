@@ -1,7 +1,7 @@
 def schema: path(..)|map(tostring)|join("/");
 #def nvp(): to_entries|map("\(.key)=\(.value|tostring)")|join(" ");
 def nvp(keys): . as $h|keys|split(",")|map([.,($h[.]|tostring)]|join("="))|join(",");
-def csv(keys): . as $h|keys|split(",")|map($h[.]|if .==null then "" else (.|tostring) end)|join(",");
+def csv(keys): . as $h|keys|split(",")|map($h[.]|if .==null then "" else (.|tostring|gsub(",";";")) end)|join(",");
 #def slack: [.user,.ts,.text]|join(",");
 def hostgroup: gsub("^(slcsb|slc|phx|lvs|[dc]cg[0-9]+(b[0-9]+)?|[tr]az[0-9]+|cfbt[0-9]+)|([0-9]+[ab]?)$";"");
 def pool2app: ascii_downcase|gsub("[.-]";"_")|gsub("^pool[._-]|merged[._-]|[._-]vip|[._-]pool|[._-]servers?|[._-][0-9]+|__.*";"")|gsub("ca[._-](?<name>.*)";"\(.name)_ca");
@@ -16,3 +16,5 @@ def trim(s):    s|gsub("\\s+";" ")|gsub("^\\s+|\\s+$";"");
 def crc(s):     (s|explode|reduce .[] as $c ( 0 ; (.+$c)|floor ));
 # re-order object keys by a specific list
 def order(ord):  . as $obj| ord|split(",")|reduce .[] as $key ( {}; .+([{key:$key,value:$obj[$key]}]|from_entries) );
+def jiraissues:  (.issues[]|[.id,.key]as[$id,$key]|.fields|.+{_id:$id,_key:$key});
+def jiratidy:    (with_entries(select(.value!=null))|with_entries(.value|=if .name? then .name else . end)|with_entries(.value|=if .displayName? then .displayName else . end));

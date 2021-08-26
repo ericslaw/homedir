@@ -96,7 +96,7 @@ while(<>){
         # optionally append barchart
         my $baridx = (defined $bar && $bar =~ /l|last|nf|NF|^$/) ? $#F : $bar;  # allow NF or lastfield or blank to be last column
 #       push @F, substr("x"x999,0,$F[$baridx]);
-        $F[$#F] =~ s/\s+$//; # trim last field of whitespace
+        $F[$#F] =~ s/\s+$// if $#F >= 0; # trim last field of whitespace TODO BUG; what if -1 but @F is empty?
         \@F;
     }
     @data;

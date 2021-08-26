@@ -72,6 +72,7 @@ hs.hotkey.bind({"ctrl"}, "v", nil, function() hs.eventtap.keyStroke({"cmd"}, "v"
 --- miro window manager to 'throw' windows to edges
 hs.loadSpoon("MiroWindowsManager")
 spoon.MiroWindowsManager.GRID  = { w = 24, h = 24 }
+--- spoon.MiroWindowsManager.sizes = { 48/47, 6/5, 4/3, 3/2, 2/1, 48/22, 3/1, 4/1 }
 spoon.MiroWindowsManager.sizes = { 6/5, 4/3, 3/2, 2/1, 3/1, 4/1 }
 spoon.MiroWindowsManager:bindHotkeys({
     up    = {mash, "up"},
@@ -358,8 +359,15 @@ function auwatch()
 end
 auwatch()
 
---  hs.audiodevice.watcher.setCallback( function() if defout has no volume, find first that does, setdefout; end )
---  hs.audiodevice.watcher.start()
+hs.audiodevice.watcher.setCallback(
+    function(str)
+        print("audev.watcher ")
+        print(str)
+        auprint()
+        -- if defout has no volume, find first that does, setdefout
+    end
+)
+hs.audiodevice.watcher.start()
 
 --- }}}
 -- window inventory {{{
