@@ -1,0 +1,4 @@
+#/bin/sh
+ejql=`perl -MURI::Escape -le 'print uri_escape join" ", map {s/\s+/ /g;s/^\s|\s$//gm;$_} join" ",map {split/\n/} @ARGV' "$*"`
+curl.pl --expire 1 "https://ololabs.atlassian.net/rest/api/3/search?startAt={0,100,200,300,400,500}&maxResults=100&jql=$ejql" | jq -Sr .
+

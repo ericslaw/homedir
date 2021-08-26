@@ -1,0 +1,23 @@
+#!/bin/sh
+# dump json payloads from har file
+har=$1
+#if [ -z "$har" ]; then echo "must provide a HAR file as argument"; exit 1; fi
+if [ ! -f "$1" ]; then
+    pattern=$1
+    shift
+fi
+
+jq -Sr '
+    [
+        .log.entries[]|
+            # filter by .request.url or .response.status or .response.content.mimeType
+            select(.response.content.mimeType|endswith("javascript"))|
+
+            # push url and status into response.content
+            (.response.content) += {url:.request.url,status:.response.status}|
+
+            .response.content|
+                # decode .text if encoding==base64 and/or mimeType==json
+                .text = if .encoding=="base64" then (.text|@base64d) else .text end |
+                .text = if .mimeType=="application/json" and .text? and (.text|length)>3 then (.text|fromjson) else .text end
+    ]' $@
