@@ -8,10 +8,12 @@ use Scalar::Util qw(looks_like_number);
 # get options {{{
 $::VERSION = 0.2;
 our $opt = {    # with default options
+    delimiter => ',',
 };
 use Getopt::Long qw( GetOptionsFromArray :config default gnu_compat pass_through bundling);
 GetOptions( $opt, 'debug|d!', 'verbose|v:+', 'neuter|n',
-    'header|h:s',   # exists = header on line 1, if pattern, then those lines are headers
+    'header|h:s',       # exists = header on line 1, if pattern, then those lines are headers
+    'delimiter|d:s',
     'fields|f=s@' => sub { push @{$opt->{$_[0]}}, split/,/, @_[1..$#_] },
 ) || die;
 #}}}
@@ -25,7 +27,7 @@ while (<>){
     chomp $line;
 
     $line =~ s{\n}{\\\\n}g;                                 # make multi-lines single-line (not sure why needs quad-\
-    my @F = map {s{,}{;}g;$_} quotewords qr{,},0,$line;     # unpack fields with quoting
+    my @F = map {s{,}{;}g;$_} quotewords qr{[$opt->{delimiter}]},0,$line;     # unpack fields with quoting
 
     if ( $opt->{header} && ref $opt->{fields} eq 'ARRAY' ){
 #       if ( looks_like_number "$opt->{header}" ){
