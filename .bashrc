@@ -11,6 +11,8 @@ elif [ -n "$PS1" ]; then
     export PS1="\u@\h\$ "   # alternative default from common system settings
 fi
 
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 #
 # path
 #
