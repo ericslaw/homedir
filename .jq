@@ -18,3 +18,5 @@ def crc(s):     (s|explode|reduce .[] as $c ( 0 ; (.+$c)|floor ));
 def order(ord):  . as $obj| ord|split(",")|reduce .[] as $key ( {}; .+([{key:$key,value:$obj[$key]}]|from_entries) );
 def jiraissues:  (.issues[]|[.id,.key]as[$id,$key]|.fields|.+{_id:$id,_key:$key});
 def jiratidy:    (with_entries(select(.value!=null))|with_entries(.value|=if .name? then .name else . end)|with_entries(.value|=if .displayName? then .displayName else . end));
+def naturalize(f): (f|gsub("(?<d>\\d+)"; ("0"*(8-(.d|length))+.d)));
+def natsort_by(f): sort_by(naturalize(f));
