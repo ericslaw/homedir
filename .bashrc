@@ -311,6 +311,18 @@ function when {
 function rwhen {
     perl -MTime::Local -le '$ENV{TZ}="US/Eastern";@T=reverse splice[split/\D+/,join" ",@ARGV,0,0,0],0,6;$T[4]--;print timelocal splice@T,0,6' $@
 }
+function dur {
+    perl -le '
+        sub tosec{my($s,$m,$h)=reverse split/\D+/, join":",@_;return $h*3600+$m*60+$s}
+        $d=tosec("23:59:59")+1-tosec($ARGV[0])+tosec($ARGV[1]);
+        printf "%d+%2d:%02d:%02d (%ds)\n",
+                int($d/86400),
+                   int($d/3600)%24,
+                       int($d/60)%60,
+                            $d % 60,
+                                  $d
+    ' $*
+}
 function age {
     perl -MPOSIX=strftime -MTime::Local -le '@T=reverse splice[split/\D+/,join" ",@ARGV,0,0,0], 0,6;$T[4]--;$then=timelocal @T;$now=time;$age=$now-$then;print strftime"%Y/%m/%d-%H:%M:%S $then",localtime $then;foreach(qw(1 60 3600 86400 604800 2628000 31536000 )){printf"%15.3f %12d\n",$age/$_,$_}' $@
 }
