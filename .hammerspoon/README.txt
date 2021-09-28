@@ -3,6 +3,11 @@ hammerspoon notes+links
     https://github.com/Hammerspoon/hammerspoon/wiki/Sample-Configurations
     http://www.hammerspoon.org/go/
 
+https://github.com/Hammerspoon/hammerspoon/issues/2924
+    talks about performance of window move/size operations under various macos versions
+    which relates to this gist: https://gist.github.com/kizzx2/e542fa74b80b7563045a
+    resulted in this spoon creation: https://github.com/dbalatero/SkyRocket.spoon
+
 modules {{{
 hs          core {{{
     hs.inspect
