@@ -1,0 +1,6 @@
+#!/usr/bin/perl -l --
+# script to allow cut to take -c0 args because it USED to
+# if -c0 is found, then replace with 1
+@ARGV = map { $_=~ s/-c0-/-c1-/; $_ } @ARGV;
+unshift @ARGV, "/usr/bin/cut";
+exec @ARGV;
